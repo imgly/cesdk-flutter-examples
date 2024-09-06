@@ -1,0 +1,57 @@
+# Uncomment this line to define a global platform for your project
+platform :ios, '16.0'
+
+# CocoaPods analytics sends network stats synchronously affecting flutter build latency.
+ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+
+project 'Runner', {
+  'Debug' => :debug,
+  'Profile' => :release,
+  'Release' => :release
+}
+
+def flutter_root
+  generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'), __FILE__)
+  unless File.exist?(generated_xcode_build_settings_path)
+    raise "#{generated_xcode_build_settings_path} must exist. If you're running pod install manually, make sure flutter pub get is executed first"
+  end
+
+  File.foreach(generated_xcode_build_settings_path) do |line|
+    matches = line.match(/FLUTTER_ROOT=(.*)/)
+    return matches[1].strip if matches
+  end
+  raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try deleting Generated.xcconfig, then run flutter pub get"
+end
+
+require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
+
+flutter_ios_podfile_setup
+
+target 'Runner' do
+  use_frameworks!
+  use_modular_headers!
+
+  if ENV['BUILD_TYPE'] == 'source'
+    pod 'IMGLYUI', path: "#{ENV['SOURCE_POD_PATH']}/IMGLYUI.podspec"
+    pod 'IMGLYCore', path: "#{ENV['SOURCE_POD_PATH']}/IMGLYCore.podspec"
+    pod 'IMGLYCoreUI', path: "#{ENV['SOURCE_POD_PATH']}/IMGLYCoreUI.podspec"
+    pod 'IMGLYCamera', path: "#{ENV['SOURCE_POD_PATH']}/IMGLYCamera.podspec"
+    pod 'IMGLYEditor', path: "#{ENV['SOURCE_POD_PATH']}/IMGLYEditor.podspec"
+    pod 'IMGLYApparelEditor', path: "#{ENV['SOURCE_POD_PATH']}/IMGLYApparelEditor.podspec"
+    pod 'IMGLYPhotoEditor', path: "#{ENV['SOURCE_POD_PATH']}/IMGLYPhotoEditor.podspec"
+    pod 'IMGLYDesignEditor', path: "#{ENV['SOURCE_POD_PATH']}/IMGLYDesignEditor.podspec"
+    pod 'IMGLYPostcardEditor', path: "#{ENV['SOURCE_POD_PATH']}/IMGLYPostcardEditor.podspec"
+    pod 'IMGLYVideoEditor', path: "#{ENV['SOURCE_POD_PATH']}/IMGLYVideoEditor.podspec"
+  end
+
+  flutter_install_all_ios_pods __dir__
+  target 'RunnerTests' do
+    inherit! :search_paths
+  end
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    flutter_additional_ios_build_settings(target)
+  end
+end

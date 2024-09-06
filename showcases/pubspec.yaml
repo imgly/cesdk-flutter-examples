@@ -1,0 +1,26 @@
+name: showcases
+description: "Showcases common use cases of the `imgly_editor` Flutter plugin."
+publish_to: 'none'
+version: 1.34.0
+environment:
+  sdk: '>=3.4.3 <4.0.0'
+dependencies:
+  flutter:
+    sdk: flutter
+  #highlight-pubspec
+  imgly_editor: 1.34.0
+  #highlight-pubspec
+  cupertino_icons: ^1.0.6
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  flutter_driver:
+    sdk: flutter
+  image: ^4.2.0
+  flutter_lints: ^3.0.0
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
