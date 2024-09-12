@@ -120,11 +120,10 @@ packages:
   imgly_editor:
     dependency: "direct main"
     description:
-      name: imgly_editor
-      sha256: "50145f36beca7d89aa3b3dce950d06215e04d2ec3c7d3efe1363d9625d87b58c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.34.0"
+      path: "../../cesdk_flutter/plugins/imgly_editor"
+      relative: true
+    source: path
+    version: "1.33.0"
   integration_test:
     dependency: "direct dev"
     description: flutter
