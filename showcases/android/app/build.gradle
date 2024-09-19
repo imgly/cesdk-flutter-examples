@@ -84,7 +84,7 @@ android {
 }
 
 dependencies {
-  implementation findProject(":editor") ?: "ly.img:editor:1.35.0"
+  implementation findProject(":editor") ?: "ly.img:editor:1.36.0-rc.1"
   implementation "androidx.compose:compose-bom:2023.05.01"
   implementation "androidx.activity:activity-compose:1.6.1"
 }
