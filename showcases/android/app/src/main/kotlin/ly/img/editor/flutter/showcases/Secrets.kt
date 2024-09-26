@@ -1,6 +1,6 @@
 package ly.img.editor.flutter.showcases
 
-import android.app.ShowcasesFlutterBuildConfig
+import ly.img.editor.flutter.ShowcasesFlutterBuildConfig
 
 class Secrets {
     companion object {
