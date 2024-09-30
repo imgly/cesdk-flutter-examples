@@ -26,6 +26,7 @@ if (flutterVersionName == null) {
 
 buildConfig {
     className "ShowcasesFlutterBuildConfig"
+    packageName "ly.img.editor.flutter"
     buildConfigField String, "UNSPLASH_HOST", System.env.CESDK_AND_UNSPLASH_HOST ?: localProperties.getProperty("unsplash_host") ?: ""
 }
 
@@ -84,7 +85,7 @@ android {
 }
 
 dependencies {
-  implementation findProject(":editor") ?: "ly.img:editor:1.35.0"
+  implementation "ly.img:editor:1.36.0"
   implementation "androidx.compose:compose-bom:2023.05.01"
   implementation "androidx.activity:activity-compose:1.6.1"
 }
