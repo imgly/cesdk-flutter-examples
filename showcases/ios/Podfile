@@ -32,6 +32,7 @@ target 'Runner' do
   use_modular_headers!
 
   if ENV['BUILD_TYPE'] == 'source'
+    pod 'IMGLYEngine', path: "#{ENV['SOURCE_POD_PATH_ENGINE']}/IMGLYEngine.podspec"
     pod 'IMGLYUI', path: "#{ENV['SOURCE_POD_PATH']}/IMGLYUI.podspec"
     pod 'IMGLYCore', path: "#{ENV['SOURCE_POD_PATH']}/IMGLYCore.podspec"
     pod 'IMGLYCoreUI', path: "#{ENV['SOURCE_POD_PATH']}/IMGLYCoreUI.podspec"
@@ -53,5 +54,10 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+    next unless ENV['SOURCE_POD_PATH_ENGINE']
+
+    target.build_configurations.each do |config|
+      config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'i386 x86_64'
+    end
   end
 end
