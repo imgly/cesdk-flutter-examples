@@ -72,14 +72,6 @@ import UIKit
 
     IMGLYEditorPlugin.builderClosure = { preset, metadata in
       switch preset {
-      case .apparel:
-        defaultOrCustomEditor(
-          defaultEditor: EditorBuilder.apparel(),
-          customEditor: EditorBuilder.custom { settings, _, _, result in
-            CustomApparelEditor(settings: settings, result: result)
-          },
-          metadata: metadata
-        )
       case .postcard:
         defaultOrCustomEditor(
           defaultEditor: EditorBuilder.postcard(),
@@ -109,6 +101,18 @@ import UIKit
           defaultEditor: EditorBuilder.design(),
           customEditor: EditorBuilder.custom { settings, _, _, result in
             CustomDesignEditor(settings: settings, result: result)
+          },
+          metadata: metadata
+        )
+      case .apparel:
+        defaultOrCustomEditor(
+          // NOTE: This custom editor is only used for UITests.
+          // By default, simply use `EditorBuilder.apparel()` instead.
+          defaultEditor: EditorBuilder.custom { settings, _, _, result in
+            ApparelEditorForUITests(settings: settings, result: result)
+          },
+          customEditor: EditorBuilder.custom { settings, _, _, result in
+            CustomApparelEditor(settings: settings, result: result)
           },
           metadata: metadata
         )
@@ -198,6 +202,9 @@ extension AppDelegate {
           .imgly.onCreate { engine in
             try await OnCreate.load(settings, defaultSource: ApparelEditor.defaultScene)(engine)
             try engine.asset.addSource(UnsplashAssetSource(host: Secrets.unsplashHost))
+
+            // This is only needed for UITests.
+            try engine.editor.setSettingBool("showBuildVersion", value: false)
           }
           .imgly.onExport { engine, _ in
             do {
@@ -349,6 +356,45 @@ extension AppDelegate {
                 AssetLibrarySource.image(.title("Unsplash"), source: .init(id: UnsplashAssetSource.id))
                 DefaultAssetLibrary.images
               }
+          }
+      } onDismiss: { cancelled in
+        if cancelled {
+          result(.success(nil))
+          dismiss()
+        } else {
+          result(.failure("Export failed."))
+        }
+      }
+    }
+  }
+
+  /// A custom apparel editor.
+  private struct ApparelEditorForUITests: View {
+    @Environment(\.dismiss) private var dismiss
+    private let settings: EditorSettings
+    private let result: EditorBuilderResult
+
+    init(settings: EditorSettings, result: @escaping EditorBuilderResult) {
+      self.settings = settings
+      self.result = result
+    }
+
+    var body: some View {
+      ModalEditor {
+        ApparelEditor(engineSettings(for: settings))
+          .imgly.onCreate { engine in
+            try await OnCreate.load(settings, defaultSource: ApparelEditor.defaultScene)(engine)
+
+            // This is only needed for UITests.
+            try engine.editor.setSettingBool("showBuildVersion", value: false)
+          }
+          .imgly.onExport { engine, _ in
+            do {
+              let editorResult = try await OnExport.export(engine, .pdf)
+              result(.success(editorResult))
+            } catch {
+              result(.failure(error))
+            }
           }
       } onDismiss: { cancelled in
         if cancelled {

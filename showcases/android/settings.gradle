@@ -19,32 +19,21 @@ pluginManagement {
 
 plugins {
     id "dev.flutter.flutter-plugin-loader" version "1.0.0"
-    id "com.android.application" version "7.3.0" apply false
-    id "com.android.library" version "7.3.0" apply false
+    id "com.android.application" version "8.4.0" apply false
+    id "com.android.library" version "8.4.0" apply false
     //highlight-kotlin
-    id 'org.jetbrains.kotlin.android' version "$kotlinVersion" apply false
+    id 'org.jetbrains.kotlin.android' version "1.9.10" apply false
     //highlight-kotlin
     id 'com.github.gmazzo.buildconfig' version "5.3.5" apply false
 }
 
+rootProject.name = "CE.SDK Flutter Android Examples"
 include ":app"
 //highlight-kotlin-block
 
 // Internal use only
 def ubqRootPath = "../../../../"
-def editorModulesDir = file("$ubqRootPath/apps/cesdk_android_examples")
 def useLocalEditor = System.getenv("UBQ_USE_LOCAL_EDITOR") == "true" || getLocalProperty("useLocalEditor") == "true"
-def useLocalEngine = System.getenv("UBQ_USE_LOCAL_ENGINE") == "true" || getLocalProperty("useLocalEngine") == "true"
-
-dependencyResolutionManagement {
-    if (useLocalEditor) {
-          versionCatalogs {
-            libs {
-              from(files("$editorModulesDir/gradle/editor-libs.versions.toml"))
-            }
-        }
-    }
-}
 
 String getLocalProperty(String key) {
     def propertiesFile = new File(rootDir, "local.properties")
@@ -55,28 +44,11 @@ String getLocalProperty(String key) {
 }
 
 if (useLocalEditor) {
-    include ':editor-experimental'
-    include ':editor-core'
-    include ':editor-core-ui'
-    include ':editor-base'
-    include ':editor-apparel'
-    include ':editor-postcard'
-    include ':editor-design'
-    include ':editor-photo'
-    include ':editor'
-    project(':editor-experimental').projectDir = file("$editorModulesDir/editor-experimental")
-    project(':editor-core').projectDir = file("$editorModulesDir/editor-core")
-    project(':editor-core-ui').projectDir = file("$editorModulesDir/editor-core-ui")
-    project(':editor-base').projectDir = file("$editorModulesDir/editor-base")
-    project(':editor-apparel').projectDir = file("$editorModulesDir/editor-apparel")
-    project(':editor-postcard').projectDir = file("$editorModulesDir/editor-postcard")
-    project(':editor-design').projectDir = file("$editorModulesDir/editor-design")
-    project(':editor-photo').projectDir = file("$editorModulesDir/editor-photo")
-    project(':editor').projectDir = file("$editorModulesDir/editor")
-}
-
-if (useLocalEngine) {
-    include ':ubq-android-engine'
-    project(':ubq-android-engine').projectDir = file("$ubqRootPath/bindings/android")
+    includeBuild("$ubqRootPath/apps/cesdk_android_examples") {
+        name "editor"
+        dependencySubstitution {
+            substitute module('ly.img:editor') using project(':editor')
+        }
+    }
 }
 // Internal use only

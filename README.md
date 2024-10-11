@@ -2,9 +2,9 @@
 
 # IMGLY Creative Editor - Flutter Examples
 
-This repository contains the Fluter examples for the IMG.LY mobile editor solutions.
+This repository contains the Flutter examples for the IMG.LY mobile editor solutions.
 The underlying `Engine` enables you to build any design editing UI, automation and creative workflow for iOS and Android.
-It offers performant and robust graphics processing capabilities combining the best of layout, typography and image processing with advanced workflows centered around templating and adaptation. 
+It offers performant and robust graphics processing capabilities combining the best of layout, typography and image processing with advanced workflows centered around templating and adaptation.
 
 The `Engine` seamlessly integrates into any iOS or Android app whether you are building a photo editor, template-based design tool or scalable automation of content creation for your app.
 The mobile editor is fully built on top of the `Engine`.
@@ -23,6 +23,7 @@ In order to run the `showcases` application in this repository use the instructi
 1. Get a free trial license at https://img.ly/forms/free-trial.
 2. Copy the license key.
 3. Include the license key in the `lib/secrets/secrets.dart` file:
+
 ```
 static const String license = {YOUR_LICENSE_KEY}
 ```
