@@ -32,7 +32,7 @@ buildConfig {
 
 android {
     namespace = "ly.img.editor.flutter.showcases"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 35 // flutter.compileSdkVersion is 34, remove hardcode when flutter updates this value
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -47,7 +47,7 @@ android {
         //highlight-minsdk
         minSdk = 24
         //highlight-minsdk
-        targetSdk = flutter.targetSdkVersion
+        targetSdk = 35 // flutter.targetSdkVersion is 34, remove hardcode when flutter updates this value
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
     }
@@ -85,7 +85,7 @@ android {
 }
 
 dependencies {
-  implementation "ly.img:editor:1.36.0"
+  implementation "ly.img:editor:1.39.0"
   implementation "androidx.compose:compose-bom:2023.05.01"
   implementation "androidx.activity:activity-compose:1.6.1"
 }
