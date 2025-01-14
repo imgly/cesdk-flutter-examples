@@ -25,7 +25,7 @@ final List<Section> _examples = [
         DefaultDesignEditor()),
     Example(
         "Custom Design Editor",
-        "Loads custom design scene and adds Unsplash asset source and libray.",
+        "Loads custom design scene and adds Unsplash asset source and library.",
         CustomDesignEditor())
   ]),
   Section(
@@ -36,7 +36,7 @@ final List<Section> _examples = [
             DefaultApparelEditor()),
         Example(
             "Custom Apparel Editor",
-            "Loads custom apparel scene and adds Unsplash asset source and libray.",
+            "Loads custom apparel scene and adds Unsplash asset source and library.",
             CustomApparelEditor())
       ]),
   Section(
@@ -47,7 +47,7 @@ final List<Section> _examples = [
             DefaultPostcardEditor()),
         Example(
             "Custom Postcard Editor",
-            "Loads custom postcard scene and adds Unsplash asset source and libray.",
+            "Loads custom postcard scene and adds Unsplash asset source and library.",
             CustomPostcardEditor())
       ]),
 ];
@@ -63,7 +63,7 @@ void loadExamples() {
           DefaultVideoEditor()),
       Example(
           "Custom Video Editor",
-          "Loads custom video scene and adds Unsplash asset source and libray.",
+          "Loads custom video scene and adds Unsplash asset source and library.",
           CustomVideoEditor())
     ]));
   }
