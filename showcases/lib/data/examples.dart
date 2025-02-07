@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:showcases/data/code_examples/design/custom_design_editor.dart';
 import 'package:showcases/data/code_examples/design/default_design_editor.dart';
 import 'package:showcases/data/code_examples/photo/custom_photo_editor.dart';
@@ -14,7 +12,7 @@ import 'package:showcases/model/section.dart';
 import 'code_examples/apparel/custom_apparel_editor.dart';
 import 'code_examples/apparel/default_apparel_editor.dart';
 
-final List<Section> _examples = [
+final List<Section> examples = [
   Section("Photo Editor", "Edit Photo", [
     Example("Default Photo Editor", "Loads empty image.", DefaultPhotoEditor()),
     Example(
@@ -50,21 +48,12 @@ final List<Section> _examples = [
             "Loads custom postcard scene and adds Unsplash asset source and library.",
             CustomPostcardEditor())
       ]),
+  Section("Video Editor", "Edit video.", [
+    Example("Default Video Editor", "Loads empty video scene.",
+        DefaultVideoEditor()),
+    Example(
+        "Custom Video Editor",
+        "Loads custom video scene and adds Unsplash asset source and library.",
+        CustomVideoEditor())
+  ])
 ];
-
-List<Section> examples = [];
-
-void loadExamples() {
-  examples = _examples;
-  if (Platform.isIOS &&
-      examples.where((e) => e.title == "Video Editor").isEmpty) {
-    examples.add(Section("Video Editor", "Edit video.", [
-      Example("Default Video Editor", "Loads empty video scene.",
-          DefaultVideoEditor()),
-      Example(
-          "Custom Video Editor",
-          "Loads custom video scene and adds Unsplash asset source and library.",
-          CustomVideoEditor())
-    ]));
-  }
-}
