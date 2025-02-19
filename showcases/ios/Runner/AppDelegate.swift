@@ -299,7 +299,11 @@ extension AppDelegate {
               let editorResult = try await OnExport.exportVideo(engine, eventHandler, .mp4)
               result(.success(editorResult))
             } catch {
-              result(.failure(error))
+              if error is CancellationError {
+                return
+              } else {
+                result(.failure(error))
+              }
             }
           }
           .imgly.assetLibrary {
