@@ -19,8 +19,8 @@ pluginManagement {
 
 plugins {
     id "dev.flutter.flutter-plugin-loader" version "1.0.0"
-    id "com.android.application" version "8.4.0" apply false
-    id "com.android.library" version "8.4.0" apply false
+    id "com.android.application" version "8.6.1" apply false
+    id "com.android.library" version "8.6.1" apply false
     //highlight-kotlin
     id 'org.jetbrains.kotlin.android' version "1.9.10" apply false
     //highlight-kotlin
@@ -44,7 +44,7 @@ String getLocalProperty(String key) {
 }
 
 if (useLocalEditor) {
-    includeBuild("$ubqRootPath/apps/cesdk_android_examples") {
+    includeBuild("$ubqRootPath/apps/cesdk_android") {
         name "editor"
         dependencySubstitution {
             substitute module('ly.img:editor') using project(':editor')
