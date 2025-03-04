@@ -121,10 +121,10 @@ packages:
     dependency: "direct main"
     description:
       name: imgly_editor
-      sha256: "81b64ff3815dc414be31cf2d2b2f310d4ffb26b0c90b0124b1a9624906a8cd90"
+      sha256: "54843469aa574b82cae9f5d2f4797cde9df755673c10820886cdb6be6228b657"
       url: "https://pub.dev"
     source: hosted
-    version: "1.44.0"
+    version: "1.43.0"
   integration_test:
     dependency: "direct dev"
     description: flutter
