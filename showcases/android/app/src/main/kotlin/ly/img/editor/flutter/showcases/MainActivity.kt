@@ -3,12 +3,15 @@ package ly.img.editor.flutter.showcases
 import android.net.Uri
 import androidx.compose.runtime.Composable
 import io.flutter.embedding.android.FlutterActivity
+import kotlinx.coroutines.CancellationException
 import ly.img.editor.ApparelEditor
 import ly.img.editor.DesignEditor
+import ly.img.editor.DismissVideoExportEvent
 import ly.img.editor.EditorConfiguration
 import ly.img.editor.EngineConfiguration
 import ly.img.editor.PhotoEditor
 import ly.img.editor.PostcardEditor
+import ly.img.editor.VideoEditor
 import ly.img.editor.core.library.AssetLibrary
 import ly.img.editor.core.library.AssetType
 import ly.img.editor.core.library.LibraryCategory
@@ -87,6 +90,16 @@ class MainActivity : FlutterActivity() {
                     builderOrCustom(EditorBuilder.design(), customBuilder, metadata)
                 }
 
+                EditorPreset.VIDEO -> {
+                    val customBuilder =
+                        EditorBuilder.custom { settings, _, _, result, onClose ->
+                            @Composable {
+                                CustomVideoEditor(settings, result, onClose)
+                            }
+                        }
+                    builderOrCustom(EditorBuilder.video(), customBuilder, metadata)
+                }
+
                 null -> {
                     val customBuilder =
                         EditorBuilder.custom { settings, _, _, result, onClose ->
@@ -123,8 +136,9 @@ class MainActivity : FlutterActivity() {
                         eventHandler = editorContext.eventHandler,
                         settings = settings,
                         defaultScene = EngineConfiguration.defaultApparelSceneUri,
-                    )
-                    editorContext.engine.asset.addSource(unsplashAssetSource)
+                    ) { _, _ ->
+                        editorContext.engine.asset.addSource(unsplashAssetSource)
+                    }
                 },
                 onExport = {
                     val export =
@@ -165,8 +179,9 @@ class MainActivity : FlutterActivity() {
                         eventHandler = editorContext.eventHandler,
                         settings = settings,
                         defaultScene = EngineConfiguration.defaultDesignSceneUri,
-                    )
-                    editorContext.engine.asset.addSource(unsplashAssetSource)
+                    ) { _, _ ->
+                        editorContext.engine.asset.addSource(unsplashAssetSource)
+                    }
                 },
                 onExport = {
                     val export =
@@ -208,8 +223,9 @@ class MainActivity : FlutterActivity() {
                         settings = settings,
                         defaultScene = EditorBuilderDefaults.defaultPhotoUri,
                         sourceType = EditorSourceType.IMAGE,
-                    )
-                    editorContext.engine.asset.addSource(unsplashAssetSource)
+                    ) { _, _ ->
+                        editorContext.engine.asset.addSource(unsplashAssetSource)
+                    }
                 },
                 onExport = {
                     val export =
@@ -250,8 +266,9 @@ class MainActivity : FlutterActivity() {
                         eventHandler = editorContext.eventHandler,
                         settings = settings,
                         defaultScene = EngineConfiguration.defaultPostcardSceneUri,
-                    )
-                    editorContext.engine.asset.addSource(unsplashAssetSource)
+                    ) { _, _ ->
+                        editorContext.engine.asset.addSource(unsplashAssetSource)
+                    }
                 },
                 onExport = {
                     val export =
@@ -271,6 +288,51 @@ class MainActivity : FlutterActivity() {
             engineConfiguration = engineConfiguration,
             editorConfiguration = editorConfiguration,
         ) {
+            onClose(it)
+        }
+    }
+
+    @Composable
+    fun CustomVideoEditor(
+        settings: EditorSettings,
+        result: EditorBuilderResult,
+        onClose: (Throwable?) -> Unit,
+    ) {
+        val engineConfiguration =
+            EngineConfiguration.remember(
+                license = settings.license,
+                baseUri = Uri.parse(settings.baseUri),
+                userId = settings.userId,
+                onCreate = {
+                    EditorBuilderDefaults.onCreate(
+                        editorContext.engine,
+                        editorContext.eventHandler,
+                        settings,
+                        EngineConfiguration.defaultPostcardSceneUri,
+                    ) { _, _ ->
+                        editorContext.engine.asset.addSource(unsplashAssetSource)
+                    }
+                },
+                onExport = {
+                    try {
+                        val export =
+                            EditorBuilderDefaults.onExportVideo(
+                                editorContext.engine,
+                                editorContext.eventHandler,
+                                MimeType.MP4,
+                            )
+                        result(Result.success(export))
+                    } catch (e: Exception) {
+                        if (e !is CancellationException) {
+                            result(Result.failure(e))
+                        } else {
+                            editorContext.eventHandler.send(DismissVideoExportEvent)
+                        }
+                    }
+                },
+            )
+
+        VideoEditor(engineConfiguration = engineConfiguration) {
             onClose(it)
         }
     }
