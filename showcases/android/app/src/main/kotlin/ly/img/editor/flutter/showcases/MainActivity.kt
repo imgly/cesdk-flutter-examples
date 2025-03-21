@@ -34,16 +34,14 @@ import ly.img.engine.MimeType
 
 class MainActivity : FlutterActivity() {
     private val unsplashAssetSource = UnsplashAssetSource(Secrets.unsplashHost)
-    private val unsplashSection =
-        LibraryContent.Section(
-            titleRes = R.string.unsplash,
-            sourceTypes = listOf(AssetSourceType(sourceId = unsplashAssetSource.sourceId)),
-            assetType = AssetType.Image,
-        )
-    private val assetLibrary =
-        AssetLibrary.getDefault(
-            images = LibraryCategory.Images.addSection(unsplashSection),
-        )
+    private val unsplashSection = LibraryContent.Section(
+        titleRes = R.string.unsplash,
+        sourceTypes = listOf(AssetSourceType(sourceId = unsplashAssetSource.sourceId)),
+        assetType = AssetType.Image,
+    )
+    private val assetLibrary = AssetLibrary.getDefault(
+        images = LibraryCategory.Images.addSection(unsplashSection),
+    )
 
     override fun onStart() {
         super.onStart()
@@ -51,62 +49,56 @@ class MainActivity : FlutterActivity() {
         IMGLYEditorPlugin.builderClosure = { preset, metadata ->
             when (preset) {
                 EditorPreset.APPAREL -> {
-                    val customBuilder =
-                        EditorBuilder.custom { settings, _, _, result, onClose ->
-                            @Composable {
-                                CustomApparelEditor(settings, result, onClose)
-                            }
+                    val customBuilder = EditorBuilder.custom { settings, _, _, result, onClose ->
+                        @Composable {
+                            CustomApparelEditor(settings, result, onClose)
                         }
+                    }
                     builderOrCustom(EditorBuilder.apparel(), customBuilder, metadata)
                 }
 
                 EditorPreset.POSTCARD -> {
-                    val customBuilder =
-                        EditorBuilder.custom { settings, _, _, result, onClose ->
-                            @Composable {
-                                CustomPostcardEditor(settings, result, onClose)
-                            }
+                    val customBuilder = EditorBuilder.custom { settings, _, _, result, onClose ->
+                        @Composable {
+                            CustomPostcardEditor(settings, result, onClose)
                         }
+                    }
                     builderOrCustom(EditorBuilder.postcard(), customBuilder, metadata)
                 }
 
                 EditorPreset.PHOTO -> {
-                    val customBuilder =
-                        EditorBuilder.custom { settings, _, _, result, onClose ->
-                            @Composable {
-                                CustomPhotoEditor(settings, result, onClose)
-                            }
+                    val customBuilder = EditorBuilder.custom { settings, _, _, result, onClose ->
+                        @Composable {
+                            CustomPhotoEditor(settings, result, onClose)
                         }
+                    }
                     builderOrCustom(EditorBuilder.photo(), customBuilder, metadata)
                 }
 
                 EditorPreset.DESIGN -> {
-                    val customBuilder =
-                        EditorBuilder.custom { settings, _, _, result, onClose ->
-                            @Composable {
-                                CustomDesignEditor(settings, result, onClose)
-                            }
+                    val customBuilder = EditorBuilder.custom { settings, _, _, result, onClose ->
+                        @Composable {
+                            CustomDesignEditor(settings, result, onClose)
                         }
+                    }
                     builderOrCustom(EditorBuilder.design(), customBuilder, metadata)
                 }
 
                 EditorPreset.VIDEO -> {
-                    val customBuilder =
-                        EditorBuilder.custom { settings, _, _, result, onClose ->
-                            @Composable {
-                                CustomVideoEditor(settings, result, onClose)
-                            }
+                    val customBuilder = EditorBuilder.custom { settings, _, _, result, onClose ->
+                        @Composable {
+                            CustomVideoEditor(settings, result, onClose)
                         }
+                    }
                     builderOrCustom(EditorBuilder.video(), customBuilder, metadata)
                 }
 
                 null -> {
-                    val customBuilder =
-                        EditorBuilder.custom { settings, _, _, result, onClose ->
-                            @Composable {
-                                CustomDesignEditor(settings, result, onClose)
-                            }
+                    val customBuilder = EditorBuilder.custom { settings, _, _, result, onClose ->
+                        @Composable {
+                            CustomDesignEditor(settings, result, onClose)
                         }
+                    }
                     builderOrCustom(EditorBuilder.design(), customBuilder, metadata)
                 }
             }
@@ -125,35 +117,32 @@ class MainActivity : FlutterActivity() {
         result: EditorBuilderResult,
         onClose: (Throwable?) -> Unit,
     ) {
-        val engineConfiguration =
-            EngineConfiguration.remember(
-                license = settings.license,
-                baseUri = Uri.parse(settings.baseUri),
-                userId = settings.userId,
-                onCreate = {
-                    EditorBuilderDefaults.onCreate(
-                        engine = editorContext.engine,
-                        eventHandler = editorContext.eventHandler,
-                        settings = settings,
-                        defaultScene = EngineConfiguration.defaultApparelSceneUri,
-                    ) { _, _ ->
-                        editorContext.engine.asset.addSource(unsplashAssetSource)
-                    }
-                },
-                onExport = {
-                    val export =
-                        EditorBuilderDefaults.onExport(
-                            engine = editorContext.engine,
-                            eventHandler = editorContext.eventHandler,
-                            mimeType = MimeType.PDF,
-                        )
-                    result(Result.success(export))
-                },
-            )
-        val editorConfiguration =
-            EditorConfiguration.rememberForApparel(
-                assetLibrary = assetLibrary,
-            )
+        val engineConfiguration = EngineConfiguration.remember(
+            license = settings.license,
+            baseUri = Uri.parse(settings.baseUri),
+            userId = settings.userId,
+            onCreate = {
+                EditorBuilderDefaults.onCreate(
+                    engine = editorContext.engine,
+                    eventHandler = editorContext.eventHandler,
+                    settings = settings,
+                    defaultScene = EngineConfiguration.defaultApparelSceneUri,
+                ) { _, _ ->
+                    editorContext.engine.asset.addSource(unsplashAssetSource)
+                }
+            },
+            onExport = {
+                val export = EditorBuilderDefaults.onExport(
+                    engine = editorContext.engine,
+                    eventHandler = editorContext.eventHandler,
+                    mimeType = MimeType.PDF,
+                )
+                result(Result.success(export))
+            },
+        )
+        val editorConfiguration = EditorConfiguration.rememberForApparel(
+            assetLibrary = assetLibrary,
+        )
         ApparelEditor(
             engineConfiguration = engineConfiguration,
             editorConfiguration = editorConfiguration,
@@ -168,35 +157,32 @@ class MainActivity : FlutterActivity() {
         result: EditorBuilderResult,
         onClose: (Throwable?) -> Unit,
     ) {
-        val engineConfiguration =
-            EngineConfiguration.remember(
-                license = settings.license,
-                baseUri = Uri.parse(settings.baseUri),
-                userId = settings.userId,
-                onCreate = {
-                    EditorBuilderDefaults.onCreate(
-                        engine = editorContext.engine,
-                        eventHandler = editorContext.eventHandler,
-                        settings = settings,
-                        defaultScene = EngineConfiguration.defaultDesignSceneUri,
-                    ) { _, _ ->
-                        editorContext.engine.asset.addSource(unsplashAssetSource)
-                    }
-                },
-                onExport = {
-                    val export =
-                        EditorBuilderDefaults.onExport(
-                            engine = editorContext.engine,
-                            eventHandler = editorContext.eventHandler,
-                            mimeType = MimeType.PDF,
-                        )
-                    result(Result.success(export))
-                },
-            )
-        val editorConfiguration =
-            EditorConfiguration.rememberForDesign(
-                assetLibrary = assetLibrary,
-            )
+        val engineConfiguration = EngineConfiguration.remember(
+            license = settings.license,
+            baseUri = Uri.parse(settings.baseUri),
+            userId = settings.userId,
+            onCreate = {
+                EditorBuilderDefaults.onCreate(
+                    engine = editorContext.engine,
+                    eventHandler = editorContext.eventHandler,
+                    settings = settings,
+                    defaultScene = EngineConfiguration.defaultDesignSceneUri,
+                ) { _, _ ->
+                    editorContext.engine.asset.addSource(unsplashAssetSource)
+                }
+            },
+            onExport = {
+                val export = EditorBuilderDefaults.onExport(
+                    engine = editorContext.engine,
+                    eventHandler = editorContext.eventHandler,
+                    mimeType = MimeType.PDF,
+                )
+                result(Result.success(export))
+            },
+        )
+        val editorConfiguration = EditorConfiguration.rememberForDesign(
+            assetLibrary = assetLibrary,
+        )
         DesignEditor(
             engineConfiguration = engineConfiguration,
             editorConfiguration = editorConfiguration,
@@ -211,36 +197,33 @@ class MainActivity : FlutterActivity() {
         result: EditorBuilderResult,
         onClose: (Throwable?) -> Unit,
     ) {
-        val engineConfiguration =
-            EngineConfiguration.remember(
-                license = settings.license,
-                baseUri = Uri.parse(settings.baseUri),
-                userId = settings.userId,
-                onCreate = {
-                    EditorBuilderDefaults.onCreate(
-                        engine = editorContext.engine,
-                        eventHandler = editorContext.eventHandler,
-                        settings = settings,
-                        defaultScene = EditorBuilderDefaults.defaultPhotoUri,
-                        sourceType = EditorSourceType.IMAGE,
-                    ) { _, _ ->
-                        editorContext.engine.asset.addSource(unsplashAssetSource)
-                    }
-                },
-                onExport = {
-                    val export =
-                        EditorBuilderDefaults.onExport(
-                            engine = editorContext.engine,
-                            eventHandler = editorContext.eventHandler,
-                            mimeType = MimeType.PNG,
-                        )
-                    result(Result.success(export))
-                },
-            )
-        val editorConfiguration =
-            EditorConfiguration.rememberForPhoto(
-                assetLibrary = assetLibrary,
-            )
+        val engineConfiguration = EngineConfiguration.remember(
+            license = settings.license,
+            baseUri = Uri.parse(settings.baseUri),
+            userId = settings.userId,
+            onCreate = {
+                EditorBuilderDefaults.onCreate(
+                    engine = editorContext.engine,
+                    eventHandler = editorContext.eventHandler,
+                    settings = settings,
+                    defaultScene = EditorBuilderDefaults.defaultPhotoUri,
+                    sourceType = EditorSourceType.IMAGE,
+                ) { _, _ ->
+                    editorContext.engine.asset.addSource(unsplashAssetSource)
+                }
+            },
+            onExport = {
+                val export = EditorBuilderDefaults.onExport(
+                    engine = editorContext.engine,
+                    eventHandler = editorContext.eventHandler,
+                    mimeType = MimeType.PNG,
+                )
+                result(Result.success(export))
+            },
+        )
+        val editorConfiguration = EditorConfiguration.rememberForPhoto(
+            assetLibrary = assetLibrary,
+        )
         PhotoEditor(
             engineConfiguration = engineConfiguration,
             editorConfiguration = editorConfiguration,
@@ -255,35 +238,32 @@ class MainActivity : FlutterActivity() {
         result: EditorBuilderResult,
         onClose: (Throwable?) -> Unit,
     ) {
-        val engineConfiguration =
-            EngineConfiguration.remember(
-                license = settings.license,
-                baseUri = Uri.parse(settings.baseUri),
-                userId = settings.userId,
-                onCreate = {
-                    EditorBuilderDefaults.onCreate(
-                        engine = editorContext.engine,
-                        eventHandler = editorContext.eventHandler,
-                        settings = settings,
-                        defaultScene = EngineConfiguration.defaultPostcardSceneUri,
-                    ) { _, _ ->
-                        editorContext.engine.asset.addSource(unsplashAssetSource)
-                    }
-                },
-                onExport = {
-                    val export =
-                        EditorBuilderDefaults.onExport(
-                            engine = editorContext.engine,
-                            eventHandler = editorContext.eventHandler,
-                            mimeType = MimeType.PDF,
-                        )
-                    result(Result.success(export))
-                },
-            )
-        val editorConfiguration =
-            EditorConfiguration.rememberForPostcard(
-                assetLibrary = assetLibrary,
-            )
+        val engineConfiguration = EngineConfiguration.remember(
+            license = settings.license,
+            baseUri = Uri.parse(settings.baseUri),
+            userId = settings.userId,
+            onCreate = {
+                EditorBuilderDefaults.onCreate(
+                    engine = editorContext.engine,
+                    eventHandler = editorContext.eventHandler,
+                    settings = settings,
+                    defaultScene = EngineConfiguration.defaultPostcardSceneUri,
+                ) { _, _ ->
+                    editorContext.engine.asset.addSource(unsplashAssetSource)
+                }
+            },
+            onExport = {
+                val export = EditorBuilderDefaults.onExport(
+                    engine = editorContext.engine,
+                    eventHandler = editorContext.eventHandler,
+                    mimeType = MimeType.PDF,
+                )
+                result(Result.success(export))
+            },
+        )
+        val editorConfiguration = EditorConfiguration.rememberForPostcard(
+            assetLibrary = assetLibrary,
+        )
         PostcardEditor(
             engineConfiguration = engineConfiguration,
             editorConfiguration = editorConfiguration,
@@ -298,39 +278,37 @@ class MainActivity : FlutterActivity() {
         result: EditorBuilderResult,
         onClose: (Throwable?) -> Unit,
     ) {
-        val engineConfiguration =
-            EngineConfiguration.remember(
-                license = settings.license,
-                baseUri = Uri.parse(settings.baseUri),
-                userId = settings.userId,
-                onCreate = {
-                    EditorBuilderDefaults.onCreate(
+        val engineConfiguration = EngineConfiguration.remember(
+            license = settings.license,
+            baseUri = Uri.parse(settings.baseUri),
+            userId = settings.userId,
+            onCreate = {
+                EditorBuilderDefaults.onCreate(
+                    editorContext.engine,
+                    editorContext.eventHandler,
+                    settings,
+                    EngineConfiguration.defaultPostcardSceneUri,
+                ) { _, _ ->
+                    editorContext.engine.asset.addSource(unsplashAssetSource)
+                }
+            },
+            onExport = {
+                try {
+                    val export = EditorBuilderDefaults.onExportVideo(
                         editorContext.engine,
                         editorContext.eventHandler,
-                        settings,
-                        EngineConfiguration.defaultPostcardSceneUri,
-                    ) { _, _ ->
-                        editorContext.engine.asset.addSource(unsplashAssetSource)
+                        MimeType.MP4,
+                    )
+                    result(Result.success(export))
+                } catch (e: Exception) {
+                    if (e !is CancellationException) {
+                        result(Result.failure(e))
+                    } else {
+                        editorContext.eventHandler.send(DismissVideoExportEvent)
                     }
-                },
-                onExport = {
-                    try {
-                        val export =
-                            EditorBuilderDefaults.onExportVideo(
-                                editorContext.engine,
-                                editorContext.eventHandler,
-                                MimeType.MP4,
-                            )
-                        result(Result.success(export))
-                    } catch (e: Exception) {
-                        if (e !is CancellationException) {
-                            result(Result.failure(e))
-                        } else {
-                            editorContext.eventHandler.send(DismissVideoExportEvent)
-                        }
-                    }
-                },
-            )
+                }
+            },
+        )
 
         VideoEditor(engineConfiguration = engineConfiguration) {
             onClose(it)
