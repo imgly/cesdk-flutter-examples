@@ -26,28 +26,25 @@ class UnsplashAssetSource(
 
     override val supportedMimeTypes = listOf("image/jpeg")
 
-    override val credits =
-        AssetCredits(
-            name = "Unsplash",
-            uri = Uri.parse("https://unsplash.com/"),
-        )
+    override val credits = AssetCredits(
+        name = "Unsplash",
+        uri = Uri.parse("https://unsplash.com/"),
+    )
 
-    override val license =
-        AssetLicense(
-            name = "Unsplash license (free)",
-            uri = Uri.parse("https://unsplash.com/license"),
-        )
+    override val license = AssetLicense(
+        name = "Unsplash license (free)",
+        uri = Uri.parse("https://unsplash.com/license"),
+    )
 
     override suspend fun findAssets(query: FindAssetsQuery): FindAssetsResult =
         if (query.query.isNullOrEmpty()) query.getPopularList() else query.getSearchList()
 
     private suspend fun FindAssetsQuery.getPopularList(): FindAssetsResult {
-        val queryParams =
-            listOf(
-                "order_by" to "popular",
-                "page" to page + 1,
-                "per_page" to perPage,
-            ).joinToString(separator = "&") { (key, value) -> "$key=$value" }
+        val queryParams = listOf(
+            "order_by" to "popular",
+            "page" to page + 1,
+            "per_page" to perPage,
+        ).joinToString(separator = "&") { (key, value) -> "$key=$value" }
         val assetsArray = getResponseAsString("$baseUrl/photos?$queryParams").let(::JSONArray)
         return FindAssetsResult(
             assets = (0 until assetsArray.length()).map { assetsArray.getJSONObject(it).toAsset() },
@@ -58,12 +55,11 @@ class UnsplashAssetSource(
     }
 
     private suspend fun FindAssetsQuery.getSearchList(): FindAssetsResult {
-        val queryParams =
-            listOf(
-                "query" to query,
-                "page" to page + 1,
-                "per_page" to perPage,
-            ).joinToString(separator = "&") { (key, value) -> "$key=$value" }
+        val queryParams = listOf(
+            "query" to query,
+            "page" to page + 1,
+            "per_page" to perPage,
+        ).joinToString(separator = "&") { (key, value) -> "$key=$value" }
         val response = getResponseAsString("$baseUrl/search/photos?$queryParams").let(::JSONObject)
         val assetsArray = response.getJSONArray("results")
         val total = response.getInt("total")
@@ -76,53 +72,46 @@ class UnsplashAssetSource(
         )
     }
 
-    private suspend fun getResponseAsString(url: String) =
-        withContext(Dispatchers.IO) {
-            val connection = URL(url).openConnection() as HttpURLConnection
-            require(connection.responseCode in 200 until 300) {
-                connection.errorStream.bufferedReader().use { it.readText() }
-            }
-            connection.inputStream.bufferedReader().use { it.readText() }
+    private suspend fun getResponseAsString(url: String) = withContext(Dispatchers.IO) {
+        val connection = URL(url).openConnection() as HttpURLConnection
+        require(connection.responseCode in 200 until 300) {
+            connection.errorStream.bufferedReader().use { it.readText() }
         }
+        connection.inputStream.bufferedReader().use { it.readText() }
+    }
 
-    private fun JSONObject.toAsset() =
-        Asset(
-            id = getString("id"),
-            locale = "en",
-            label =
-                when {
-                    !isNull("description") -> getString("description")
-                    !isNull("alt_description") -> getString("alt_description")
-                    else -> null
-                },
-            tags =
-                takeIf { has("tags") }
-                    ?.let { getJSONArray("tags") }
-                    ?.let {
-                        (0 until it.length()).map { index -> it.getJSONObject(index).getString("title") }
-                    }?.takeIf { it.isNotEmpty() },
-            meta =
-                mapOf(
-                    "uri" to getJSONObject("urls").getString("full"),
-                    "thumbUri" to getJSONObject("urls").getString("thumb"),
-                    "blockType" to DesignBlockType.Graphic.key,
-                    "fillType" to FillType.Image.key,
-                    "shapeType" to ShapeType.Rect.key,
-                    "kind" to "image",
-                    "width" to getInt("width").toString(),
-                    "height" to getInt("height").toString(),
-                ),
-            context = AssetContext(sourceId = "unsplash"),
-            credits =
-                AssetCredits(
-                    name = getJSONObject("user").getString("name"),
-                    uri =
-                        getJSONObject("user")
-                            .takeIf { it.has("links") }
-                            ?.getJSONObject("links")
-                            ?.getString("html")
-                            ?.let { Uri.parse(it) },
-                ),
-            utm = AssetUTM(source = "CE.SDK Demo", medium = "referral"),
-        )
+    private fun JSONObject.toAsset() = Asset(
+        id = getString("id"),
+        locale = "en",
+        label = when {
+            !isNull("description") -> getString("description")
+            !isNull("alt_description") -> getString("alt_description")
+            else -> null
+        },
+        tags = takeIf { has("tags") }
+            ?.let { getJSONArray("tags") }
+            ?.let {
+                (0 until it.length()).map { index -> it.getJSONObject(index).getString("title") }
+            }?.takeIf { it.isNotEmpty() },
+        meta = mapOf(
+            "uri" to getJSONObject("urls").getString("full"),
+            "thumbUri" to getJSONObject("urls").getString("thumb"),
+            "blockType" to DesignBlockType.Graphic.key,
+            "fillType" to FillType.Image.key,
+            "shapeType" to ShapeType.Rect.key,
+            "kind" to "image",
+            "width" to getInt("width").toString(),
+            "height" to getInt("height").toString(),
+        ),
+        context = AssetContext(sourceId = "unsplash"),
+        credits = AssetCredits(
+            name = getJSONObject("user").getString("name"),
+            uri = getJSONObject("user")
+                .takeIf { it.has("links") }
+                ?.getJSONObject("links")
+                ?.getString("html")
+                ?.let { Uri.parse(it) },
+        ),
+        utm = AssetUTM(source = "CE.SDK Demo", medium = "referral"),
+    )
 }
