@@ -1,14 +1,14 @@
 name: showcases
 description: "Showcases common use cases of the `imgly_editor` Flutter plugin."
 publish_to: 'none'
-version: 1.48.0
+version: 1.48.1
 environment:
   sdk: '>=3.4.3 <4.0.0'
 dependencies:
   flutter:
     sdk: flutter
   #highlight-pubspec
-  imgly_editor: 1.48.0
+  imgly_editor: 1.48.1
   #highlight-pubspec
   cupertino_icons: ^1.0.6
 dev_dependencies:
