@@ -27,6 +27,10 @@ plugins {
     id 'com.github.gmazzo.buildconfig' version "5.3.5" apply false
 }
 
+// highlight-kotlin-compiler
+gradle.ext.kotlinCompilerExtensionVersion = "1.5.3"
+// highlight-kotlin-compiler
+
 rootProject.name = "CE.SDK Flutter Android Examples"
 include ":app"
 //highlight-kotlin-block
