@@ -1,3 +1,5 @@
+import 'package:showcases/data/code_examples/camera/default_camera.dart';
+import 'package:showcases/data/code_examples/camera/default_camera_reaction.dart';
 import 'package:showcases/data/code_examples/design/custom_design_editor.dart';
 import 'package:showcases/data/code_examples/design/default_design_editor.dart';
 import 'package:showcases/data/code_examples/photo/custom_photo_editor.dart';
@@ -13,6 +15,11 @@ import 'code_examples/apparel/custom_apparel_editor.dart';
 import 'code_examples/apparel/default_apparel_editor.dart';
 
 final List<Section> examples = [
+  Section("Camera", "Capture a Photo", [
+    Example("Open Camera", "Loads the camera.", DefaultCamera()),
+    Example(
+        "Camera with Reaction", "Loads the camera that react to an video.", DefaultCameraRecation())
+  ]),
   Section("Photo Editor", "Edit Photo", [
     Example("Default Photo Editor", "Loads empty image.", DefaultPhotoEditor()),
     Example(

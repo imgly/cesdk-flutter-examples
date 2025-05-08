@@ -52,6 +52,7 @@ if (useLocalEditor) {
         name "editor"
         dependencySubstitution {
             substitute module('ly.img:editor') using project(':editor')
+            substitute module('ly.img:camera') using project(':camera')
         }
     }
 }
