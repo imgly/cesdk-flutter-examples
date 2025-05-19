@@ -1,4 +1,4 @@
-//highlight-kotlin-block
+// highlight-kotlin-block
 pluginManagement {
     def flutterSdkPath = {
         def properties = new Properties()
@@ -21,9 +21,9 @@ plugins {
     id "dev.flutter.flutter-plugin-loader" version "1.0.0"
     id "com.android.application" version "8.6.1" apply false
     id "com.android.library" version "8.6.1" apply false
-    //highlight-kotlin
+    // highlight-kotlin
     id 'org.jetbrains.kotlin.android' version "1.9.10" apply false
-    //highlight-kotlin
+    // highlight-kotlin
     id 'com.github.gmazzo.buildconfig' version "5.3.5" apply false
 }
 
@@ -33,7 +33,7 @@ gradle.ext.kotlinCompilerExtensionVersion = "1.5.3"
 
 rootProject.name = "CE.SDK Flutter Android Examples"
 include ":app"
-//highlight-kotlin-block
+// highlight-kotlin-block
 
 // Internal use only
 def ubqRootPath = "../../../../"
@@ -52,6 +52,7 @@ if (useLocalEditor) {
         name "editor"
         dependencySubstitution {
             substitute module('ly.img:editor') using project(':editor')
+            substitute module('ly.img:camera') using project(':camera')
         }
     }
 }
