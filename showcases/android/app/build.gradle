@@ -44,9 +44,9 @@ android {
         applicationId = "ly.img.editor.flutter.showcases"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        //highlight-minsdk
+        // highlight-minsdk
         minSdk = 24
-        //highlight-minsdk
+        // highlight-minsdk
         targetSdk = 35 // flutter.targetSdkVersion is 34, remove hardcode when flutter updates this value
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
@@ -85,7 +85,8 @@ android {
 }
 
 dependencies {
-  implementation "ly.img:editor:1.50.2"
+  implementation "ly.img:camera:1.51.0"
+  implementation "ly.img:editor:1.51.0"
   implementation "androidx.compose:compose-bom:2023.05.01"
   implementation "androidx.activity:activity-compose:1.6.1"
 }

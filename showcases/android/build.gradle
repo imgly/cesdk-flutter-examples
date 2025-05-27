@@ -2,9 +2,9 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        //highlight-maven
+        // highlight-maven
         maven { url "https://artifactory.img.ly/artifactory/maven" }
-        //highlight-maven
+        // highlight-maven
     }
 }
 
