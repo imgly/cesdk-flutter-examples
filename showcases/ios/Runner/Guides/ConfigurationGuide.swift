@@ -4,7 +4,7 @@ import imgly_editor
 import SwiftUI
 
 // highlight-import
-
+// highlight-editor-configuration
 func useCustomEditor() {
   // highlight-closure
   IMGLYEditorPlugin.builderClosure = { _, metadata in
@@ -22,8 +22,18 @@ func useCustomEditor() {
   // highlight-closure
 }
 
+private struct CustomEditor: View {
+  init(settings _: EditorSettings, result _: @escaping EditorBuilder.EditorBuilderResult) {}
+
+  var body: some View {
+    Text("Custom Editor")
+  }
+}
+
+// highlight-editor-configuration
+
+// highlight-camera-configuration
 func configureCamera() {
-  // highlight-camera-configuration
   // highlight-camera-configuration-closure
   IMGLYCameraPlugin.builderClosure = { metadata in
     // Make decisions based on your own metadata.
@@ -38,15 +48,6 @@ func configureCamera() {
     }
   }
   // highlight-camera-configuration-closure
-  // highlight-camera-configuration
-}
-
-private struct CustomEditor: View {
-  init(settings _: EditorSettings, result _: @escaping EditorBuilder.EditorBuilderResult) {}
-
-  var body: some View {
-    Text("Custom Editor")
-  }
 }
 
 private struct CustomCamera: View {
@@ -61,3 +62,5 @@ private struct CustomCamera: View {
     Text("Custom Camera")
   }
 }
+
+// highlight-camera-configuration
