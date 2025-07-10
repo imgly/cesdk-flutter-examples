@@ -5,7 +5,7 @@ import 'package:imgly_camera/imgly_camera.dart';
 
 class CameraFlutter {
   /// Opens the camera.
-  // highlight-camera
+  // highlight-camera-start
   void openCamera() async {
     // highlight-configuration
     final settings = CameraSettings(
@@ -14,9 +14,9 @@ class CameraFlutter {
     );
     // highlight-configuration
 
-    // highlight-camera
+    // highlight-camera-call
     final result = await IMGLYCamera.openCamera(settings);
-    // highlight-camera
+    // highlight-camera-call
   }
-  // highlight-camera
+  // highlight-camera-end
 }
