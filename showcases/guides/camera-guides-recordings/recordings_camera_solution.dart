@@ -14,8 +14,9 @@ class RecordingsExample extends StatelessWidget {
         );
         // highlight-configuration
         try {
-          // highlight-camera
+          // highlight-camera-call
           final result = await IMGLYCamera.openCamera(settings);
+          // highlight-camera-call
           // highlight-cancelled
           if (result == null) {
             print('The editor has been cancelled.');
