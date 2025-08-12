@@ -28,7 +28,7 @@ public final class UnsplashAssetSource: NSObject {
           .init(name: "page", value: String(queryData.page + 1)),
           .init(name: "per_page", value: String(queryData.perPage)),
           .init(name: "content_filter", value: "high"),
-        ]
+        ],
       )
     }
 
@@ -40,7 +40,7 @@ public final class UnsplashAssetSource: NSObject {
           .init(name: "page", value: String(queryData.page + 1)),
           .init(name: "per_page", value: String(queryData.perPage)),
           .init(name: "content_filter", value: "high"),
-        ]
+        ],
       )
     }
 
@@ -76,7 +76,7 @@ extension UnsplashAssetSource: AssetSource {
         assets: response.map(AssetResult.init),
         currentPage: queryData.page,
         nextPage: nextPage,
-        total: -1
+        total: -1,
       )
     } else {
       let response = try decoder.decode(UnsplashSearchResponse.self, from: data)
@@ -87,7 +87,7 @@ extension UnsplashAssetSource: AssetSource {
         assets: results.map(AssetResult.init),
         currentPage: queryData.page,
         nextPage: nextPage,
-        total: total
+        total: total,
       )
     }
   }
@@ -99,14 +99,14 @@ extension UnsplashAssetSource: AssetSource {
   public var credits: AssetCredits? {
     .init(
       name: "Unsplash",
-      url: URL(string: "https://unsplash.com/")!
+      url: URL(string: "https://unsplash.com/")!,
     )
   }
 
   public var license: AssetLicense? {
     .init(
       name: "Unsplash license (free)",
-      url: URL(string: "https://unsplash.com/license")!
+      url: URL(string: "https://unsplash.com/license")!,
     )
   }
 }
@@ -130,7 +130,7 @@ private extension AssetResult {
       ],
       context: .init(sourceID: "unsplash"),
       credits: .init(name: image.user.name!, url: image.user.links?.html),
-      utm: .init(source: "CE.SDK Demo", medium: "referral")
+      utm: .init(source: "CE.SDK Demo", medium: "referral"),
     )
   }
 }
