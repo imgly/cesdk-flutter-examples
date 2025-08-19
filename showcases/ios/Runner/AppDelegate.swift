@@ -15,7 +15,7 @@ import UIKit
 
   override func application(
     _ application: UIApplication,
-    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?,
   ) -> Bool {
     // swiftlint:disable:next force_cast
     let controller: FlutterViewController = window?.rootViewController as! FlutterViewController
@@ -61,7 +61,7 @@ import UIKit
     func defaultOrCustomEditor(
       defaultEditor: @escaping EditorBuilder.Builder,
       customEditor: @escaping EditorBuilder.Builder,
-      metadata: [String: Any]?
+      metadata: [String: Any]?,
     ) -> EditorBuilder.Builder {
       if let enabled = metadata?["custom"] as? Bool, enabled == true {
         customEditor
@@ -78,7 +78,7 @@ import UIKit
           customEditor: EditorBuilder.custom { settings, _, _, result in
             CustomPostcardEditor(settings: settings, result: result)
           },
-          metadata: metadata
+          metadata: metadata,
         )
       case .photo:
         defaultOrCustomEditor(
@@ -86,7 +86,7 @@ import UIKit
           customEditor: EditorBuilder.custom { settings, _, _, result in
             CustomPhotoEditor(settings: settings, result: result)
           },
-          metadata: metadata
+          metadata: metadata,
         )
       case .video:
         defaultOrCustomEditor(
@@ -94,7 +94,7 @@ import UIKit
           customEditor: EditorBuilder.custom { settings, _, _, result in
             CustomVideoEditor(settings: settings, result: result)
           },
-          metadata: metadata
+          metadata: metadata,
         )
       case .design:
         defaultOrCustomEditor(
@@ -102,7 +102,7 @@ import UIKit
           customEditor: EditorBuilder.custom { settings, _, _, result in
             CustomDesignEditor(settings: settings, result: result)
           },
-          metadata: metadata
+          metadata: metadata,
         )
       case .apparel:
         defaultOrCustomEditor(
@@ -114,7 +114,7 @@ import UIKit
           customEditor: EditorBuilder.custom { settings, _, _, result in
             CustomApparelEditor(settings: settings, result: result)
           },
-          metadata: metadata
+          metadata: metadata,
         )
       case nil:
         EditorBuilder.custom { settings, _, _, result in
@@ -342,7 +342,7 @@ extension AppDelegate {
             try await OnCreate.load(
               settings,
               settings.source?.type ?? .image,
-              defaultSource: PostcardEditor.defaultScene
+              defaultSource: PostcardEditor.defaultScene,
             )(engine)
             try engine.asset.addSource(UnsplashAssetSource(host: Secrets.unsplashHost))
           }
