@@ -121,18 +121,18 @@ packages:
     dependency: "direct main"
     description:
       name: imgly_camera
-      sha256: "0c414cec3a22be91d5772afd1818a114643cb7fe98b5b05b7601e6a3d7a2ea6d"
+      sha256: df381f198a0d7e6b06c0b87417a75ad8f504fb10e228d3fa9035fa48b56dc853
       url: "https://pub.dev"
     source: hosted
-    version: "1.57.1"
+    version: "1.58.0"
   imgly_editor:
     dependency: "direct main"
     description:
       name: imgly_editor
-      sha256: "4b9fd6f6e3d6a5159fce33a68b812883b3eedf74b7460eb9848efef9b905b0ba"
+      sha256: "0f87ac2823f532832cddd17601f88e1aa88a946940201d93f1ce1c990e576086"
       url: "https://pub.dev"
     source: hosted
-    version: "1.57.1"
+    version: "1.58.0"
   integration_test:
     dependency: "direct dev"
     description: flutter
