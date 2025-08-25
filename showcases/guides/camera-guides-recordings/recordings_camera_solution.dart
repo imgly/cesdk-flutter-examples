@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:imgly_camera/imgly_camera.dart';
 // highlight-import
 
-class RecordingsExample extends StatelessWidget {
+class RecordingsCameraSolution extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () async {
         // highlight-configuration
-        final settings = CameraSettings(
+        const settings = CameraSettings(
           license: "YOUR-LICENSE-KEY",
         );
         // highlight-configuration
@@ -24,11 +24,14 @@ class RecordingsExample extends StatelessWidget {
           }
           // highlight-cancelled
           // highlight-standard
-          for (final recording in result.recordings) {
-            print('Recording duration: ${recording.duration}');
-            for (final video in recording.videos) {
-              print('Video path: ${video.path}');
-              print('Video rect: ${video.rect}');
+          final recordedVideos = result.recording?.recordings;
+          if (recordedVideos != null) {
+            for (final recording in recordedVideos) {
+              print('Recording duration: ${recording.duration}');
+              for (final video in recording.videos) {
+                print('Video path: ${video.uri}');
+                print('Video rect: ${video.rect}');
+              }
             }
           }
           // highlight-standard
@@ -38,7 +41,7 @@ class RecordingsExample extends StatelessWidget {
           // highlight-failure
         }
       },
-      child: Text('Open Camera'),
+      child: const Text('Open Camera'),
     );
   }
-} 
+}
