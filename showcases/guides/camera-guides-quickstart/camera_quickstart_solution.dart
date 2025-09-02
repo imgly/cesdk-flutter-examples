@@ -1,14 +1,13 @@
 // highlight-import
-import 'package:flutter/material.dart';
 import 'package:imgly_camera/imgly_camera.dart';
 // highlight-import
 
-class CameraFlutter {
+class CameraQuickstartSolution {
   /// Opens the camera.
   // highlight-camera-start
   void openCamera() async {
     // highlight-configuration
-    final settings = CameraSettings(
+    const settings = CameraSettings(
       license: "YOUR_LICENSE", // Your license key here
       userId: "YOUR_USER_ID", // Optional: Your user ID here
     );
@@ -16,6 +15,7 @@ class CameraFlutter {
 
     // highlight-camera-call
     final result = await IMGLYCamera.openCamera(settings);
+    print(result?.toJson());
     // highlight-camera-call
   }
   // highlight-camera-end
