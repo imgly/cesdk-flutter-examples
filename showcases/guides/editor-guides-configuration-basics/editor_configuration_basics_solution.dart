@@ -2,7 +2,7 @@
 import "package:imgly_editor/imgly_editor.dart";
 // highlight-import
 
-class BasicEditorSolution {
+class EditorConfigurationBasicsSolution {
   /// Opens the editor.
   void openEditor() async {
     // highlight-configuration
