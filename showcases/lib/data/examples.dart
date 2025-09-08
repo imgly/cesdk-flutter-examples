@@ -18,49 +18,49 @@ final List<Section> examples = [
   Section("Camera", "Capture a Photo", [
     Example("Open Camera", "Loads the camera.", DefaultCamera()),
     Example(
-        "Camera with Reaction", "Loads the camera that react to an video.", DefaultCameraRecation())
+        "Camera with Reaction", "Loads the camera that reacts to a video.", DefaultCameraReaction())
   ]),
   Section("Photo Editor", "Edit Photo", [
-    Example("Default Photo Editor", "Loads empty image.", DefaultPhotoEditor()),
+    Example("Default Photo Editor", "Loads an empty image.", DefaultPhotoEditor()),
     Example(
         "Custom Photo Editor", "Loads a selected image.", CustomPhotoEditor())
   ]),
   Section("Design Editor", "Built to edit various designs.", [
-    Example("Default Design Editor", "Loads empty design scene.",
+    Example("Default Design Editor", "Loads an empty design scene.",
         DefaultDesignEditor()),
     Example(
         "Custom Design Editor",
-        "Loads custom design scene and adds Unsplash asset source and library.",
+        "Loads a custom design scene and adds Unsplash asset source and library.",
         CustomDesignEditor())
   ]),
   Section(
       "Apparel Editor",
       "Customize and export a print-ready design with a mobile apparel editor.",
       [
-        Example("Default Apparel Editor", "Loads empty apparel scene.",
+        Example("Default Apparel Editor", "Loads an empty apparel scene.",
             DefaultApparelEditor()),
         Example(
             "Custom Apparel Editor",
-            "Loads custom apparel scene and adds Unsplash asset source and library.",
+            "Loads a custom apparel scene and adds Unsplash asset source and library.",
             CustomApparelEditor())
       ]),
   Section(
       "Post- & Greeting-Card Editor",
       "Built to facilitate optimal card design, from changing accent colors to selecting fonts.",
       [
-        Example("Default Postcard Editor", "Loads empty postcard scene.",
+        Example("Default Postcard Editor", "Loads an empty postcard scene.",
             DefaultPostcardEditor()),
         Example(
             "Custom Postcard Editor",
-            "Loads custom postcard scene and adds Unsplash asset source and library.",
+            "Loads a custom postcard scene and adds Unsplash asset source and library.",
             CustomPostcardEditor())
       ]),
   Section("Video Editor", "Edit video.", [
-    Example("Default Video Editor", "Loads empty video scene.",
+    Example("Default Video Editor", "Loads an empty video scene.",
         DefaultVideoEditor()),
     Example(
         "Custom Video Editor",
-        "Loads custom video scene and adds Unsplash asset source and library.",
+        "Loads a custom video scene and adds Unsplash asset source and library.",
         CustomVideoEditor())
   ])
 ];

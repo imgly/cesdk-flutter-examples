@@ -2,7 +2,7 @@ import 'package:imgly_camera/imgly_camera.dart';
 import 'package:showcases/model/code_example.dart';
 import 'package:showcases/secrets/secrets.dart';
 
-class DefaultCameraRecation extends CodeExample {
+class DefaultCameraReaction extends CodeExample {
   @override
   void invoke() async {
     try {
