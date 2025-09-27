@@ -18,6 +18,7 @@ class RecordingsReactionCameraSolution extends StatelessWidget {
             print('The editor has been cancelled.');
             return;
           }
+          // highlight-camera
           print('Reaction video duration: ${result.reaction?.video.duration}');
 
           // Get the reaction video data.
@@ -28,6 +29,7 @@ class RecordingsReactionCameraSolution extends StatelessWidget {
               print('Video rect: ${video.rect}');
             }
           }
+          // highlight-camera
         } catch (error) {
           print('Error occurred in the camera session: $error');
         }
