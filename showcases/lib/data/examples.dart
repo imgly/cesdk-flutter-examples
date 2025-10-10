@@ -17,11 +17,12 @@ import 'code_examples/apparel/default_apparel_editor.dart';
 final List<Section> examples = [
   Section("Camera", "Capture a Photo", [
     Example("Open Camera", "Loads the camera.", DefaultCamera()),
-    Example(
-        "Camera with Reaction", "Loads the camera that reacts to a video.", DefaultCameraReaction())
+    Example("Camera with Reaction", "Loads the camera that reacts to a video.",
+        DefaultCameraReaction())
   ]),
   Section("Photo Editor", "Edit Photo", [
-    Example("Default Photo Editor", "Loads an empty image.", DefaultPhotoEditor()),
+    Example(
+        "Default Photo Editor", "Loads an empty image.", DefaultPhotoEditor()),
     Example(
         "Custom Photo Editor", "Loads a selected image.", CustomPhotoEditor())
   ]),
