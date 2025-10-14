@@ -1,6 +1,6 @@
 package ly.img.editor.flutter.showcases.guides
 
-// highlight-import
+// highlight-import-kotlin
 import androidx.compose.runtime.Composable
 import ly.img.camera.core.CameraLayoutMode
 import ly.img.camera.core.CameraMode
@@ -12,10 +12,10 @@ import ly.img.editor.flutter.plugin.builder.EditorBuilder
 import ly.img.editor.flutter.plugin.builder.EditorBuilderResult
 import ly.img.editor.flutter.plugin.model.EditorSettings
 
-// highlight-import
+// highlight-import-kotlin
 
 private fun useCustomEditor() {
-    // highlight-closure
+    // highlight-closure-kotlin
     IMGLYEditorPlugin.builderClosure = { _, metadata ->
         if (metadata?.get("custom") == true) {
             EditorBuilder.custom { settings, _, _, result, onClose ->
@@ -27,12 +27,12 @@ private fun useCustomEditor() {
             EditorBuilder.design()
         }
     }
-    // highlight-closure
+    // highlight-closure-kotlin
 }
 
 private fun customizeCamera() {
-    // highlight-camera-configuration
-    // highlight-camera-configuration-closure
+    // highlight-camera-configuration-kotlin
+    // highlight-camera-configuration-closure-kotlin
     // Configure the [CaptureVideo.Input].
     IMGLYCameraPlugin.configurationClosure = {
         /*
@@ -60,8 +60,8 @@ private fun customizeCamera() {
         }
     }
 
-    // highlight-camera-configuration-closure
-    // highlight-camera-result-closure
+    // highlight-camera-configuration-closure-kotlin
+    // highlight-camera-result-closure-kotlin
     // Adding custom metadata to the CameraResult.
     IMGLYCameraPlugin.resultClosure = {
         /*
@@ -90,8 +90,8 @@ private fun customizeCamera() {
             "MY_CUSTOM_KEY" to "MY_CUSTOM_VALUE",
         )
     }
-    // highlight-camera-result-closure
-    // highlight-camera-configuration
+    // highlight-camera-result-closure-kotlin
+    // highlight-camera-configuration-kotlin
 }
 
 @Composable

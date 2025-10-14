@@ -1,22 +1,22 @@
-// highlight-import
+// highlight-import-dart
 import "package:imgly_camera/imgly_camera.dart";
-// highlight-import
+// highlight-import-dart
 
 class CameraConfigurationSolution {
   /// Opens the camera.
   void openCamera() async {
-    // highlight-configuration
+    // highlight-configuration-dart
     final settings =
         CameraSettings(license: "YOUR_LICENSE", userId: "YOUR_USER_ID");
-    // highlight-configuration
+    // highlight-configuration-dart
 
-    // highlight-camera-call
+    // highlight-camera-call-dart
     final _ = await IMGLYCamera.openCamera(
       settings,
       // Optional, if you want to react to a video
       video:
           'https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_2mb.mp4',
     );
-    // highlight-camera-call
+    // highlight-camera-call-dart
   }
 }
