@@ -1,12 +1,12 @@
-// highlight-import
+// highlight-import-swift
 import imgly_camera
 import imgly_editor
 import SwiftUI
 
-// highlight-import
-// highlight-editor-configuration
+// highlight-import-swift
+// highlight-editor-configuration-swift
 func useCustomEditor() {
-  // highlight-closure
+  // highlight-closure-swift
   IMGLYEditorPlugin.builderClosure = { _, metadata in
     // Make decisions based on your own metadata.
     if metadata?["use_custom_editor"] as? Bool == true {
@@ -19,7 +19,7 @@ func useCustomEditor() {
       EditorBuilder.design()
     }
   }
-  // highlight-closure
+  // highlight-closure-swift
 }
 
 private struct CustomEditor: View {
@@ -30,11 +30,11 @@ private struct CustomEditor: View {
   }
 }
 
-// highlight-editor-configuration
+// highlight-editor-configuration-swift
 
-// highlight-camera-configuration
+// highlight-camera-configuration-swift
 func configureCamera() {
-  // highlight-camera-configuration-closure
+  // highlight-camera-configuration-closure-swift
   IMGLYCameraPlugin.builderClosure = { metadata in
     // Make decisions based on your own metadata.
     if metadata?["use_custom_camera"] as? Bool == true {
@@ -47,7 +47,7 @@ func configureCamera() {
       CameraBuilder.default()
     }
   }
-  // highlight-camera-configuration-closure
+  // highlight-camera-configuration-closure-swift
 }
 
 private struct CustomCamera: View {
@@ -63,4 +63,4 @@ private struct CustomCamera: View {
   }
 }
 
-// highlight-camera-configuration
+// highlight-camera-configuration-swift
