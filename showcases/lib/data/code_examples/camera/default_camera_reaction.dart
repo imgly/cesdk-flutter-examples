@@ -8,9 +8,10 @@ class DefaultCameraReaction extends CodeExample {
     try {
       final settings = CameraSettings(license: Secrets.license);
       final result = await IMGLYCamera.openCamera(
-			  settings,
-			  video: 'https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_2mb.mp4',
-			);
+        settings,
+        video:
+            'https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_2mb.mp4',
+      );
       handleCameraResult(result);
     } catch (error) {
       handleError(error);
