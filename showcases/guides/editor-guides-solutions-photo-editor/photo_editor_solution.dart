@@ -6,8 +6,11 @@ class PhotoEditorSolution {
   /// Opens the editor.
   void openEditor() async {
     // highlight-configuration
-    final settings =
-        EditorSettings(license: "YOUR_LICENSE", userId: "YOUR_USER_ID");
+    final settings = EditorSettings(
+        license:
+            "YOUR_LICENSE", // Get your license from https://img.ly/forms/free-trial, pass null for evaluation mode with watermark
+        userId:
+            "YOUR_USER_ID"); // A unique string to identify your user/session
     // highlight-configuration
 
     // highlight-preset
