@@ -10,7 +10,8 @@ class RecordingsCameraSolution extends StatelessWidget {
       onPressed: () async {
         // highlight-configuration
         const settings = CameraSettings(
-          license: "YOUR-LICENSE-KEY",
+          license:
+              "YOUR-LICENSE-KEY", // Get your license from https://img.ly/forms/free-trial, pass null for evaluation mode with watermark
         );
         // highlight-configuration
         try {

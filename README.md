@@ -18,7 +18,13 @@ There you will learn how to integrate and configure the mobile editor for your u
 
 The `Engine` is a commercial product. To use it you need to unlock the SDK with a license file. You can purchase a license at https://img.ly/pricing.
 
-In order to run the `showcases` application in this repository, use the instructions below:
+### Evaluation Mode
+
+You can run the SDK in evaluation mode by passing `null` or an empty string as the license key. This will add a watermark to all exports but allows you to try out the SDK without a license.
+
+### Using a License Key
+
+In order to run the `showcases` application in this repository with a license key, use the instructions below:
 
 1. Get a free trial license at https://img.ly/forms/free-trial.
 2. Copy the license key.
@@ -27,5 +33,3 @@ In order to run the `showcases` application in this repository, use the instruct
 ```
 static const String license = {YOUR_LICENSE_KEY}
 ```
-
-Note that failing to provide the license key will display an error when opening any of the showcases.

@@ -7,7 +7,8 @@ class RecordingsReactionCameraSolution extends StatelessWidget {
     return ElevatedButton(
       onPressed: () async {
         const settings = CameraSettings(
-          license: "YOUR-LICENSE-KEY",
+          license:
+              "YOUR-LICENSE-KEY", // Get your license from https://img.ly/forms/free-trial, pass null for evaluation mode with watermark
         );
         try {
           final result = await IMGLYCamera.openCamera(

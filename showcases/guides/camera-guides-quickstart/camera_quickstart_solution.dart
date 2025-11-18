@@ -8,8 +8,9 @@ class CameraQuickstartSolution {
   void openCamera() async {
     // highlight-configuration
     const settings = CameraSettings(
-      license: "YOUR_LICENSE", // Your license key here
-      userId: "YOUR_USER_ID", // Optional: Your user ID here
+      license:
+          "YOUR_LICENSE", // Get your license from https://img.ly/forms/free-trial, pass null for evaluation mode with watermark
+      userId: "YOUR_USER_ID", // A unique string to identify your user/session
     );
     // highlight-configuration
 
