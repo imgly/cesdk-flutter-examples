@@ -8,7 +8,8 @@ class EditorConfigurationBasicsSolution {
     // highlight-configuration
     final settings = EditorSettings(
         // highlight-license
-        license: "YOUR_LICENSE",
+        license:
+            "YOUR_LICENSE", // Get your license from https://img.ly/forms/free-trial, pass null for evaluation mode with watermark
         // highlight-license
         // highlight-sceneBaseUri
         sceneBaseUri: "YOUR_SCENE_BASE_URI",
@@ -17,7 +18,7 @@ class EditorConfigurationBasicsSolution {
         assetBaseUri: "YOUR_ASSET_BASE_URI",
         // highlight-assetBaseUri
         // highlight-userId
-        userId: "YOUR_USER_ID"
+        userId: "YOUR_USER_ID" // A unique string to identify your user/session
         // highlight-userId
         );
     // highlight-configuration
