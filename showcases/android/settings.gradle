@@ -19,8 +19,8 @@ pluginManagement {
 
 plugins {
     id "dev.flutter.flutter-plugin-loader" version "1.0.0"
-    id "com.android.application" version "8.6.1" apply false
-    id "com.android.library" version "8.6.1" apply false
+    id "com.android.application" version "8.11.0" apply false
+    id "com.android.library" version "8.11.0" apply false
     // highlight-kotlin
     id 'org.jetbrains.kotlin.android' version "1.9.10" apply false
     // highlight-kotlin
@@ -36,24 +36,25 @@ include ":app"
 // highlight-kotlin-block
 
 // Internal use only
-def ubqRootPath = "../../../../"
-def useLocalEditor = System.getenv("UBQ_USE_LOCAL_EDITOR") == "true" || getLocalProperty("useLocalEditor") == "true"
-
-String getLocalProperty(String key) {
-    def propertiesFile = new File(rootDir, "local.properties")
-    if (!propertiesFile.exists()) return false
-    def properties = new Properties()
-    properties.load(propertiesFile.newDataInputStream())
-    return properties.getProperty(key)
-}
-
-if (useLocalEditor) {
-    includeBuild("$ubqRootPath/apps/cesdk_android") {
+def editorDir = file("../../../../apps/cesdk_android")
+def pubSpecOverrideDst = file("../../showcases/pubspec_overrides.yaml")
+if (editorDir.exists() && System.getenv("UBQ_ANDROID_USE_ARTIFACTS") != "true") {
+    // Use local imgly plugins
+    def pubSpecOverrideSrc = file("../../shared/pubspec_overrides.yaml")
+    if (pubSpecOverrideSrc.exists()) {
+        pubSpecOverrideDst.text = pubSpecOverrideSrc.text
+    }
+    // Note that settings.gradle files of imgly_editor and imgly_camera plugins are ignored when
+    // they are included in this flutter project since flutter treats them as modules and
+    // not subprojects. That is why we need to add substitution here as well.
+    includeBuild(editorDir) {
         name "editor"
         dependencySubstitution {
             substitute module('ly.img:editor') using project(':editor')
             substitute module('ly.img:camera') using project(':camera')
         }
     }
+} else {
+    pubSpecOverrideDst.delete()
 }
 // Internal use only
