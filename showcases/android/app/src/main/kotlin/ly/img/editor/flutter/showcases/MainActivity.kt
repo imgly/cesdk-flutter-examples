@@ -41,6 +41,7 @@ import ly.img.editor.flutter.plugin.builder.EditorBuilderResult
 import ly.img.editor.flutter.plugin.model.EditorPreset
 import ly.img.editor.flutter.plugin.model.EditorSettings
 import ly.img.editor.flutter.plugin.model.EditorSourceType
+import ly.img.engine.MimeType
 
 class MainActivity : FlutterActivity() {
     private val unsplashAssetSource = UnsplashAssetSource(Secrets.unsplashHost)
@@ -151,6 +152,7 @@ class MainActivity : FlutterActivity() {
                                 val result = EditorBuilderDefaults.getExportResult(
                                     scope = this@Editor,
                                     byteBuffer = it,
+                                    mimeType = MimeType.PDF,
                                 )
                                 result(Result.success(result))
                             },
@@ -206,6 +208,7 @@ class MainActivity : FlutterActivity() {
                                 val result = EditorBuilderDefaults.getExportResult(
                                     scope = this@Editor,
                                     byteBuffer = it,
+                                    mimeType = MimeType.PDF,
                                 )
                                 result(Result.success(result))
                             },
@@ -262,6 +265,7 @@ class MainActivity : FlutterActivity() {
                                 val result = EditorBuilderDefaults.getExportResult(
                                     scope = this@Editor,
                                     byteBuffer = it,
+                                    mimeType = MimeType.PNG,
                                 )
                                 result(Result.success(result))
                             },
@@ -317,6 +321,7 @@ class MainActivity : FlutterActivity() {
                                 val result = EditorBuilderDefaults.getExportResult(
                                     scope = this@Editor,
                                     byteBuffer = it,
+                                    mimeType = MimeType.PDF,
                                 )
                                 result(Result.success(result))
                             },
@@ -372,6 +377,7 @@ class MainActivity : FlutterActivity() {
                                 val result = EditorBuilderDefaults.getExportResult(
                                     scope = this@Editor,
                                     byteBuffer = it,
+                                    mimeType = MimeType.MP4,
                                 )
                                 result(Result.success(result))
                             },
