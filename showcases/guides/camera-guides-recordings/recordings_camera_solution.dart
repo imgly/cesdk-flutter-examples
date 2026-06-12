@@ -25,13 +25,22 @@ class RecordingsCameraSolution extends StatelessWidget {
           }
           // highlight-cancelled
           // highlight-standard
-          final recordedVideos = result.recording?.recordings;
-          if (recordedVideos != null) {
-            for (final recording in recordedVideos) {
-              print('Recording duration: ${recording.duration}');
-              for (final video in recording.videos) {
-                print('Video path: ${video.uri}');
-                print('Video rect: ${video.rect}');
+          final captures = result.capture?.captures;
+          if (captures != null) {
+            for (final capture in captures) {
+              final photo = capture.photo;
+              final video = capture.video;
+              if (photo != null) {
+                for (final image in photo.images) {
+                  print('Photo path: ${image.uri}');
+                  print('Photo rect: ${image.rect.toJson()}');
+                }
+              } else if (video != null) {
+                print('Recording duration: ${video.duration}');
+                for (final clip in video.videos) {
+                  print('Video path: ${clip.uri}');
+                  print('Video rect: ${clip.rect}');
+                }
               }
             }
           }

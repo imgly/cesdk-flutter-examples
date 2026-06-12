@@ -6,7 +6,7 @@ class CustomDesignEditor extends CodeExample {
   @override
   void invoke() async {
     try {
-      final settings = EditorSettings(license: Secrets.license);
+      final settings = Secrets.editorSettings();
       final result = await IMGLYEditor.openEditor(
           source: Source.fromScene("assets/booklet.scene"),
           preset: EditorPreset.design,
