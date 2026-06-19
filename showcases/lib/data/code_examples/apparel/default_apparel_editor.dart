@@ -6,7 +6,7 @@ class DefaultApparelEditor extends CodeExample {
   @override
   void invoke() async {
     try {
-      final settings = EditorSettings(license: Secrets.license);
+      final settings = Secrets.editorSettings();
       final result = await IMGLYEditor.openEditor(
           preset: EditorPreset.apparel, settings: settings);
       handleResult(result);
