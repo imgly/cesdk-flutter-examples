@@ -6,7 +6,7 @@ class CustomApparelEditor extends CodeExample {
   @override
   void invoke() async {
     try {
-      final settings = EditorSettings(license: Secrets.license);
+      final settings = Secrets.editorSettings();
       final result = await IMGLYEditor.openEditor(
           source: Source.fromScene("assets/apparel-ui-b-4.scene"),
           preset: EditorPreset.apparel,
