@@ -6,7 +6,7 @@ class CustomPostcardEditor extends CodeExample {
   @override
   void invoke() async {
     try {
-      final settings = EditorSettings(license: Secrets.license);
+      final settings = Secrets.editorSettings();
       final result = await IMGLYEditor.openEditor(
           source: Source.fromScene("assets/bonjour_paris.scene"),
           preset: EditorPreset.postcard,
