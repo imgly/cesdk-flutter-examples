@@ -6,7 +6,7 @@ class CustomPhotoEditor extends CodeExample {
   @override
   void invoke() async {
     try {
-      final settings = EditorSettings(license: Secrets.license);
+      final settings = Secrets.editorSettings();
       final result = await IMGLYEditor.openEditor(
           source: Source.fromImage("assets/sample_image.jpg"),
           preset: EditorPreset.photo,
