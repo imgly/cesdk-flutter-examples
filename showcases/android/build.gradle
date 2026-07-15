@@ -3,7 +3,7 @@ allprojects {
         google()
         mavenCentral()
         // highlight-maven
-        maven { url "https://artifactory.img.ly/artifactory/maven" }
+        maven { url "https://maven.img.ly/maven" }
         // highlight-maven
     }
 }
