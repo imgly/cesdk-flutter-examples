@@ -55,7 +55,7 @@ private struct CustomCamera: View {
     settings _: CameraSettings,
     url _: URL?,
     metadata _: [String: Any]?,
-    result _: @escaping CameraBuilder.CameraBuilderResult
+    result _: @escaping CameraBuilder.CameraBuilderResult,
   ) {}
 
   var body: some View {
