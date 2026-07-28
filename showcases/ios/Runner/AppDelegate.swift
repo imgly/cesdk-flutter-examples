@@ -279,7 +279,9 @@ extension AppDelegate {
                   let editorResult = try await OnExport.exportVideo(engine, eventHandler, .mp4)
                   result(.success(editorResult))
                 } catch {
-                  if error is CancellationError { return }
+                  if error is CancellationError {
+                    return
+                  }
                   result(.failure(error))
                 }
               }
