@@ -50,6 +50,9 @@ android {
         targetSdk = 35 // flutter.targetSdkVersion is 34, remove hardcode when flutter updates this value
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
+        // Runs the Flutter `integration_test` suite as an on-device instrumented test (required for
+        // Firebase Test Lab and UiAutomation screenshots); MainActivityTest delegates to FlutterTestRunner.
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
@@ -86,4 +89,12 @@ android {
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    // Only JUnit is declared here (for the FlutterTestRunner entry point in MainActivityTest.java).
+    // The integration_test plugin already provides androidx.test runner/rules/espresso and
+    // androidx.test:monitor transitively via `1.2+`, so re-declaring any of those with a fixed
+    // version breaks Gradle consistent resolution; JUnit's version must match the pinned 4.12.
+    androidTestImplementation "junit:junit:4.12"
 }
