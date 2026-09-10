@@ -6,7 +6,7 @@ class CustomVideoEditor extends CodeExample {
   @override
   void invoke() async {
     try {
-      final settings = Secrets.editorSettings();
+      final settings = EditorSettings(license: Secrets.license);
       final result = await IMGLYEditor.openEditor(
           source: Source.fromScene("assets/red-dot.scene"),
           preset: EditorPreset.video,
