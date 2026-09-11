@@ -5,8 +5,7 @@ import androidx.compose.runtime.Composable
 import ly.img.camera.core.CameraLayoutMode
 import ly.img.camera.core.CameraMode
 import ly.img.camera.core.CameraResult
-import ly.img.camera.core.CaptureMedia
-import ly.img.camera.core.videos
+import ly.img.camera.core.CaptureVideo
 import ly.img.camera.flutter.plugin.IMGLYCameraPlugin
 import ly.img.editor.flutter.plugin.IMGLYEditorPlugin
 import ly.img.editor.flutter.plugin.builder.EditorBuilder
@@ -34,10 +33,10 @@ private fun useCustomEditor() {
 private fun customizeCamera() {
     // highlight-camera-configuration-kotlin
     // highlight-camera-configuration-closure-kotlin
-    // Configure the [CaptureMedia.Input].
+    // Configure the [CaptureVideo.Input].
     IMGLYCameraPlugin.configurationClosure = {
         /*
-         * This closure requires returning a [CaptureMedia.Input].
+         * This closure requires returning a [CaptureVideo.Input].
          *
          * You can access the following parameters:
          * - "cameraSettings": The CameraSettings passed from the Flutter side.
@@ -47,7 +46,7 @@ private fun customizeCamera() {
          */
 
         if (metadata["is_reactions"] == true) {
-            CaptureMedia.Input(
+            CaptureVideo.Input(
                 engineConfiguration = engineConfiguration,
                 cameraMode = CameraMode.Reaction(
                     videoUri ?: throw RuntimeException("Missing video URL."),
@@ -81,7 +80,7 @@ private fun customizeCamera() {
 
         // Example: Read the result data...
         val recordings = when (val result = cameraResult) {
-            is CameraResult.Captures -> result.captures.videos
+            is CameraResult.Record -> result.recordings
             is CameraResult.Reaction -> result.reaction
             else -> emptyList()
         }
