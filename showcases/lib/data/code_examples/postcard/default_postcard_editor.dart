@@ -6,7 +6,7 @@ class DefaultPostcardEditor extends CodeExample {
   @override
   void invoke() async {
     try {
-      final settings = Secrets.editorSettings();
+      final settings = EditorSettings(license: Secrets.license);
       final result = await IMGLYEditor.openEditor(
           preset: EditorPreset.postcard, settings: settings);
       handleResult(result);
