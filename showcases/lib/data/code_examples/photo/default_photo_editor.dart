@@ -6,7 +6,7 @@ class DefaultPhotoEditor extends CodeExample {
   @override
   void invoke() async {
     try {
-      final settings = Secrets.editorSettings();
+      final settings = EditorSettings(license: Secrets.license);
       final result = await IMGLYEditor.openEditor(
           preset: EditorPreset.photo, settings: settings);
       handleResult(result);
