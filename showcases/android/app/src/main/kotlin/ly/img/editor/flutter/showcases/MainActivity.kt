@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.core.net.toUri
 import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.engine.FlutterEngine
 import ly.img.editor.Editor
 import ly.img.editor.configuration.apparel.ApparelConfigurationBuilder
 import ly.img.editor.configuration.apparel.callback.onCreate
@@ -50,6 +51,12 @@ class MainActivity : FlutterActivity() {
         sourceTypes = listOf(AssetSourceType(sourceId = unsplashAssetSource.sourceId)),
         assetType = AssetType.Image,
     )
+
+    override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
+        super.configureFlutterEngine(flutterEngine)
+        // Snapshot-test bridge: real in the debug variant, a no-op in release.
+        SnapshotChannel.register(flutterEngine, this)
+    }
 
     override fun onStart() {
         super.onStart()
