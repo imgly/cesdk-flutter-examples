@@ -6,6 +6,29 @@ plugins {
     id 'com.github.gmazzo.buildconfig'
 }
 
+def getKotlinVersion() {
+    return project.plugins.findPlugin("kotlin-android")?.class?.package?.implementationVersion
+}
+
+def isKotlin2OrHigher() {
+    def kotlinVersion = getKotlinVersion()
+    if (kotlinVersion) {
+        def mainVersion = kotlinVersion.split('-')[0]
+        def versionParts = mainVersion.tokenize('.').collect { it.toInteger() }
+        return versionParts[0] >= 2
+    }
+    return false
+}
+
+// Kotlin 2 (the effective version under Flutter 3.44+) requires the Compose Compiler Gradle
+// plugin when compose is enabled; older Kotlin keeps the composeOptions block below. This
+// adapted from the imgly plugins' own android/build.gradle — without their
+// UnknownPluginException guard, because settings.gradle here declares the plugin
+// (apply false), so it is always on the classpath.
+if (isKotlin2OrHigher()) {
+    project.plugins.apply('org.jetbrains.kotlin.plugin.compose')
+}
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file("local.properties")
 if (localPropertiesFile.exists()) {
@@ -30,6 +53,8 @@ buildConfig {
     buildConfigField String, "UNSPLASH_HOST", System.env.CESDK_AND_UNSPLASH_HOST ?: localProperties.getProperty("unsplash_host") ?: ""
 }
 
+def engineInternalDeploy = Boolean.parseBoolean(System.getenv("UBQ_ANDROID_INTERNAL_DEPLOY") ?: "false")
+
 android {
     namespace = "ly.img.editor.flutter.showcases"
     compileSdk = 35 // flutter.compileSdkVersion is 34, remove hardcode when flutter updates this value
@@ -50,6 +75,14 @@ android {
         targetSdk = 35 // flutter.targetSdkVersion is 34, remove hardcode when flutter updates this value
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
+        // Runs the Flutter `integration_test` suite as an on-device instrumented test (required for
+        // Firebase Test Lab and UiAutomation screenshots); MainActivityTest delegates to FlutterTestRunner.
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders += [
+            imglyEngineInternalDeploy: engineInternalDeploy,
+            imglyEngineStagingLicense: engineInternalDeploy,
+            imglyEngineLogging: engineInternalDeploy,
+        ]
     }
 
     signingConfigs {
@@ -79,11 +112,21 @@ android {
       compose true
     }
 
-    composeOptions {
-      kotlinCompilerExtensionVersion = "1.5.3"
+    if (!isKotlin2OrHigher()) {
+        composeOptions {
+            kotlinCompilerExtensionVersion = "1.5.3"
+        }
     }
 }
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    // Only JUnit is declared here (for the FlutterTestRunner entry point in MainActivityTest.java).
+    // The integration_test plugin already provides androidx.test runner/rules/espresso and
+    // androidx.test:monitor transitively via `1.2+`, so re-declaring any of those with a fixed
+    // version breaks Gradle consistent resolution; JUnit's version must match the pinned 4.12.
+    androidTestImplementation "junit:junit:4.12"
 }

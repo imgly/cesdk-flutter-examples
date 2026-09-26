@@ -23,13 +23,14 @@ plugins {
     id "com.android.library" version "8.11.0" apply false
     // highlight-kotlin
     id 'org.jetbrains.kotlin.android' version "1.9.10" apply false
+    // Flutter 3.44+ tooling puts its own Kotlin 2 on the build classpath, where the highest
+    // version wins over the pin above. Kotlin 2 requires the Compose Compiler Gradle plugin
+    // wherever compose is enabled; declare it here so modules can apply it when Kotlin 2 is
+    // active. Keep its version aligned with the Kotlin version the Flutter tooling ships.
+    id 'org.jetbrains.kotlin.plugin.compose' version "2.2.20" apply false
     // highlight-kotlin
     id 'com.github.gmazzo.buildconfig' version "5.3.5" apply false
 }
-
-// highlight-kotlin-compiler
-gradle.ext.kotlinCompilerExtensionVersion = "1.5.3"
-// highlight-kotlin-compiler
 
 rootProject.name = "CE.SDK Flutter Android Examples"
 include ":app"
