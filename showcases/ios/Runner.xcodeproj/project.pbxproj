@@ -20,6 +20,7 @@
 		FC21B15B2C48EF6200F8BD0D /* UnsplashResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC21B15A2C48EF6200F8BD0D /* UnsplashResponse.swift */; };
 		FC21B15E2C49C65E00F8BD0D /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC21B15D2C49C65E00F8BD0D /* Secrets.swift */; };
 		FC26661A2C53AE4F008B0118 /* ConfigurationGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2666192C53AE4F008B0118 /* ConfigurationGuide.swift */; };
+		FC26661A2C53AE4F008B0119 /* ExportToWebmGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2666192C53AE4F008B0119 /* ExportToWebmGuide.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		FC21B15A2C48EF6200F8BD0D /* UnsplashResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashResponse.swift; sourceTree = "<group>"; };
 		FC21B15D2C49C65E00F8BD0D /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		FC2666192C53AE4F008B0118 /* ConfigurationGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationGuide.swift; sourceTree = "<group>"; };
+		FC2666192C53AE4F008B0119 /* ExportToWebmGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportToWebmGuide.swift; sourceTree = "<group>"; };
 		FEF55C847324E45A3F818D54 /* Pods-RunnerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -188,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				FC2666192C53AE4F008B0118 /* ConfigurationGuide.swift */,
+				FC2666192C53AE4F008B0119 /* ExportToWebmGuide.swift */,
 			);
 			path = Guides;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				FC21B1592C48EF3000F8BD0D /* UnsplashAssetSource.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 				FC26661A2C53AE4F008B0118 /* ConfigurationGuide.swift in Sources */,
+				FC26661A2C53AE4F008B0119 /* ExportToWebmGuide.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -3,6 +3,17 @@
         android:label="showcases"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <!-- Engine deployment mode (see EngineMode), fed by env-driven
+             placeholders from build.gradle. -->
+        <meta-data
+            android:name="ly.img.engine.INTERNAL_DEPLOY"
+            android:value="${imglyEngineInternalDeploy}" />
+        <meta-data
+            android:name="ly.img.engine.STAGING_LICENSE"
+            android:value="${imglyEngineStagingLicense}" />
+        <meta-data
+            android:name="ly.img.engine.ENABLE_LOGGING"
+            android:value="${imglyEngineLogging}" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
