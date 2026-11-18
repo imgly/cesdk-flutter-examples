@@ -20,6 +20,9 @@
 		FC21B15B2C48EF6200F8BD0D /* UnsplashResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC21B15A2C48EF6200F8BD0D /* UnsplashResponse.swift */; };
 		FC21B15E2C49C65E00F8BD0D /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC21B15D2C49C65E00F8BD0D /* Secrets.swift */; };
 		FC26661A2C53AE4F008B0118 /* ConfigurationGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2666192C53AE4F008B0118 /* ConfigurationGuide.swift */; };
+		FC26661A2C53AE4F008B0119 /* ExportToWebmGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2666192C53AE4F008B0119 /* ExportToWebmGuide.swift */; };
+		FC6B00012EC4A10000B0C001 /* IMGLYPluginBackgroundRemoval in Frameworks */ = {isa = PBXBuildFile; productRef = FC6B00032EC4A10000B0C001 /* IMGLYPluginBackgroundRemoval */; };
+		FC6B00022EC4A10000B0C001 /* IMGLYPluginVoiceIsolation in Frameworks */ = {isa = PBXBuildFile; productRef = FC6B00042EC4A10000B0C001 /* IMGLYPluginVoiceIsolation */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +75,7 @@
 		FC21B15A2C48EF6200F8BD0D /* UnsplashResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashResponse.swift; sourceTree = "<group>"; };
 		FC21B15D2C49C65E00F8BD0D /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		FC2666192C53AE4F008B0118 /* ConfigurationGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationGuide.swift; sourceTree = "<group>"; };
+		FC2666192C53AE4F008B0119 /* ExportToWebmGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportToWebmGuide.swift; sourceTree = "<group>"; };
 		FEF55C847324E45A3F818D54 /* Pods-RunnerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,6 +93,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				723384A69060F3A81C3018FF /* Pods_Runner.framework in Frameworks */,
+				FC6B00012EC4A10000B0C001 /* IMGLYPluginBackgroundRemoval in Frameworks */,
+				FC6B00022EC4A10000B0C001 /* IMGLYPluginVoiceIsolation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				FC2666192C53AE4F008B0118 /* ConfigurationGuide.swift */,
+				FC2666192C53AE4F008B0119 /* ExportToWebmGuide.swift */,
 			);
 			path = Guides;
 			sourceTree = "<group>";
@@ -232,6 +239,10 @@
 			dependencies = (
 			);
 			name = Runner;
+			packageProductDependencies = (
+				FC6B00032EC4A10000B0C001 /* IMGLYPluginBackgroundRemoval */,
+				FC6B00042EC4A10000B0C001 /* IMGLYPluginVoiceIsolation */,
+			);
 			productName = Runner;
 			productReference = 97C146EE1CF9000F007C117D /* Runner.app */;
 			productType = "com.apple.product-type.application";
@@ -265,6 +276,10 @@
 				Base,
 			);
 			mainGroup = 97C146E51CF9000F007C117D;
+			packageReferences = (
+				FC6B00052EC4A10000B0C001 /* XCRemoteSwiftPackageReference "IMGLYPluginBackgroundRemoval-swift" */,
+				FC6B00062EC4A10000B0C001 /* XCRemoteSwiftPackageReference "IMGLYPluginVoiceIsolation-swift" */,
+			);
 			productRefGroup = 97C146EF1CF9000F007C117D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -410,6 +425,7 @@
 				FC21B1592C48EF3000F8BD0D /* UnsplashAssetSource.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 				FC26661A2C53AE4F008B0118 /* ConfigurationGuide.swift in Sources */,
+				FC26661A2C53AE4F008B0119 /* ExportToWebmGuide.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -760,6 +776,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FC6B00052EC4A10000B0C001 /* XCRemoteSwiftPackageReference "IMGLYPluginBackgroundRemoval-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/imgly/IMGLYPluginBackgroundRemoval-swift";
+			requirement = {
+				kind = exactVersion;
+				version = "1.87.0-rc.1";
+			};
+		};
+		FC6B00062EC4A10000B0C001 /* XCRemoteSwiftPackageReference "IMGLYPluginVoiceIsolation-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/imgly/IMGLYPluginVoiceIsolation-swift";
+			requirement = {
+				kind = exactVersion;
+				version = "1.87.0-rc.1";
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FC6B00032EC4A10000B0C001 /* IMGLYPluginBackgroundRemoval */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FC6B00052EC4A10000B0C001 /* XCRemoteSwiftPackageReference "IMGLYPluginBackgroundRemoval-swift" */;
+			productName = IMGLYPluginBackgroundRemoval;
+		};
+		FC6B00042EC4A10000B0C001 /* IMGLYPluginVoiceIsolation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FC6B00062EC4A10000B0C001 /* XCRemoteSwiftPackageReference "IMGLYPluginVoiceIsolation-swift" */;
+			productName = IMGLYPluginVoiceIsolation;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 97C146E61CF9000F007C117D /* Project object */;
 }

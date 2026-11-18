@@ -2,6 +2,8 @@ import Flutter
 import imgly_editor
 import IMGLYEditor
 import IMGLYEngine
+import IMGLYPluginBackgroundRemoval
+import IMGLYPluginVoiceIsolation
 import SwiftUI
 import UIKit
 
@@ -67,8 +69,29 @@ import UIKit
       }
     }
 
+    /// Returns the editor of the plugin that the metadata names.
+    /// - Parameter metadata: The metadata used to determine the plugin.
+    /// - Returns: The corresponding `EditorBuilder.Builder`, or `nil` when the metadata names no plugin.
+    func pluginEditor(metadata: [String: Any]?) -> EditorBuilder.Builder? {
+      switch metadata?["plugin"] as? String {
+      case "backgroundRemoval":
+        EditorBuilder.custom { settings, _, _, result in
+          BackgroundRemovalEditor(settings: settings, result: result)
+        }
+      case "voiceIsolation":
+        EditorBuilder.custom { settings, _, _, result in
+          VoiceIsolationEditor(settings: settings, result: result)
+        }
+      default:
+        nil
+      }
+    }
+
     IMGLYEditorPlugin.builderClosure = { preset, metadata in
-      switch preset {
+      if let pluginEditor = pluginEditor(metadata: metadata) {
+        return pluginEditor
+      }
+      return switch preset {
       case .postcard:
         defaultOrCustomEditor(
           defaultEditor: EditorBuilder.postcard(),
@@ -325,6 +348,96 @@ extension AppDelegate {
               }
             }
             ModalEditorConfiguration(result: result)
+          }
+      }.navigationViewStyle(.stack)
+    }
+  }
+
+  /// A photo editor with the background removal plugin.
+  private struct BackgroundRemovalEditor: View {
+    private let settings: EditorSettings
+    private let result: EditorBuilderResult
+
+    init(settings: EditorSettings, result: @escaping EditorBuilderResult) {
+      self.settings = settings
+      self.result = result
+    }
+
+    var body: some View {
+      NavigationView {
+        Editor(engineSettings(for: settings))
+          .imgly.configuration {
+            PhotoEditorConfiguration { builder in
+              builder.onCreate { engine, _ in
+                if let createScene = try OnCreate.loadFromSettings(settings) {
+                  try await PhotoEditorConfiguration.defaultOnCreate(createScene: createScene)(engine)
+                } else {
+                  try await PhotoEditorConfiguration.defaultOnCreate()(engine)
+                }
+              }
+              builder.onExport { engine, _, _ in
+                do {
+                  let editorResult = try await OnExport.export(engine, .png)
+                  result(.success(editorResult))
+                } catch {
+                  result(.failure(error))
+                }
+              }
+            }
+            ModalEditorConfiguration(result: result)
+            // highlight-plugin-swift
+            BackgroundRemovalPlugin()
+            // highlight-plugin-swift
+          }
+      }.navigationViewStyle(.stack)
+    }
+  }
+
+  /// A video editor with the voice isolation plugin.
+  private struct VoiceIsolationEditor: View {
+    private let settings: EditorSettings
+    private let result: EditorBuilderResult
+
+    init(settings: EditorSettings, result: @escaping EditorBuilderResult) {
+      self.settings = settings
+      self.result = result
+    }
+
+    var body: some View {
+      NavigationView {
+        Editor(engineSettings(for: settings))
+          .imgly.configuration {
+            VideoEditorConfiguration { builder in
+              builder.onCreate { engine, _ in
+                if let createScene = try OnCreate.loadFromSettings(settings) {
+                  try await VideoEditorConfiguration.defaultOnCreate(createScene: createScene)(engine)
+                } else {
+                  try await VideoEditorConfiguration.defaultOnCreate()(engine)
+                }
+              }
+              // The "Isolate Voice" button is in the inspector bar, so select the clip.
+              builder.onLoaded { context, existing in
+                try await existing()
+                let engine = context.engine
+                if let clip = try engine.block.find(byType: .graphic)
+                  .first(where: { VoiceIsolationPlugin.canIsolateVoice(of: $0, engine: engine) }) {
+                  try engine.block.setSelected(clip, selected: true)
+                }
+              }
+              builder.onExport { engine, eventHandler, _ in
+                do {
+                  let editorResult = try await OnExport.exportVideo(engine, eventHandler, .mp4)
+                  result(.success(editorResult))
+                } catch {
+                  if error is CancellationError {
+                    return
+                  }
+                  result(.failure(error))
+                }
+              }
+            }
+            ModalEditorConfiguration(result: result)
+            VoiceIsolationPlugin()
           }
       }.navigationViewStyle(.stack)
     }

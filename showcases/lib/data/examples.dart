@@ -4,6 +4,8 @@ import 'package:showcases/data/code_examples/design/custom_design_editor.dart';
 import 'package:showcases/data/code_examples/design/default_design_editor.dart';
 import 'package:showcases/data/code_examples/photo/custom_photo_editor.dart';
 import 'package:showcases/data/code_examples/photo/default_photo_editor.dart';
+import 'package:showcases/data/code_examples/plugins/background_removal_editor.dart';
+import 'package:showcases/data/code_examples/plugins/voice_isolation_editor.dart';
 import 'package:showcases/data/code_examples/postcard/custom_postcard_editor.dart';
 import 'package:showcases/data/code_examples/postcard/default_postcard_editor.dart';
 import 'package:showcases/data/code_examples/video/custom_video_editor.dart';
@@ -63,5 +65,15 @@ final List<Section> examples = [
         "Custom Video Editor",
         "Loads a custom video scene and adds Unsplash asset source and library.",
         CustomVideoEditor())
+  ]),
+  Section("Plugins", "Add on-device features to the editor.", [
+    Example(
+        "Background Removal",
+        "Loads a photo in a photo editor with the background removal plugin.",
+        BackgroundRemovalEditor()),
+    Example(
+        "Voice Isolation",
+        "Loads a noisy speech clip in a video editor with the voice isolation plugin.",
+        VoiceIsolationEditor())
   ])
 ];
